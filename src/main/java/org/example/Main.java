@@ -5,8 +5,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-//        Student studentA = new Student("Thien");
-//        studentA.info();
+
+        Student studentA = new Student("Thien");
+        studentA.info();
 
         List<Student> students = List.of(
                 new Student("Thien"),
@@ -21,10 +22,10 @@ public class Main {
                 new Student("Trang")
         );
 
-//        for (Student student : students) {
-//            student.info();
-//            System.out.println("\n=================");
-//        }
+        for (Student student : students) {
+            student.info();
+            System.out.println("\n=================");
+        }
 
         // get max Math
         Student maxMathPoinsStudent = students.stream()
@@ -50,41 +51,6 @@ public class Main {
                 .filter(student -> student.getPhysic() >= 5).toList();
 
         subStudents.forEach(Student::info);
-
-
-//        kiem_tra_nguyen_am("u"); // true
-//        kiem_tra_nguyen_am("e"); // true
-//        kiem_tra_nguyen_am("o"); // true
-//        kiem_tra_nguyen_am("a"); // true
-//        kiem_tra_nguyen_am("i"); // true
-//        kiem_tra_nguyen_am("U"); // true
-//        kiem_tra_nguyen_am("E"); // true
-//        kiem_tra_nguyen_am("O"); // true
-//        kiem_tra_nguyen_am("A"); // true
-//        kiem_tra_nguyen_am("I"); // true
-//        kiem_tra_nguyen_am("h"); // false
-//
-//        String sentence = "Learn with Japneet Sachdeva";
-//        int count = 0;
-//        for (int i = 0; i < sentence.length(); i++) {
-//            char c = sentence.charAt(i);
-//            if (kiem_tra_nguyen_am(c + "")) {
-//                System.out.println(sentence.charAt(i));
-//                count += 1;
-//            }
-//        }
-//        System.out.println("Tim thay " + count + " nguyen am");
-//
-//        /*
-//
-//         */
-//        String password = "pH$A6fdN";
-//
-//        if (is_valid_password(password)) {
-//            System.out.println("password is valid");
-//        } else {
-//            System.out.println("password is invalid");
-//        }
     }
 
     public static boolean kiem_tra_nguyen_am(String c) {

@@ -8,87 +8,99 @@ import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
 import org.openqa.selenium.devtools.v129.emulation.Emulation;
 import org.openqa.selenium.devtools.v129.network.Network;
+import org.openqa.selenium.devtools.v129.network.model.ConnectionType;
 import org.openqa.selenium.devtools.v129.performance.Performance;
 import org.openqa.selenium.devtools.v129.performance.model.Metric;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 public class ChromeBrowserTest {
 
     @Test
-    void openWithDefaultBrowser() {
+    void openBrowserWithDefaultMode(){
         WebDriver driver = new ChromeDriver();
         driver.get("https://www.selenium.dev/");
-        Assert.assertEquals(driver.getTitle(), "Selenium");
+        Assert.assertEquals(driver.getTitle(),"Selenium");
         driver.quit();
     }
 
     @Test
-    void openWithHeadlessMode() {
+    void openBrowserWithHeadlessMode(){
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--headless=new");
 
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.get("https://www.selenium.dev/");
-        Assert.assertEquals(driver.getTitle(), "Selenium");
+        Assert.assertEquals(driver.getTitle(),"Selenium");
         driver.quit();
     }
 
     @Test
-    void openWithMobileViewMode() {
+    void openBrowserWithMobileViewMode(){
         Map<String, Object> deviceMetrics = new HashMap<>();
-        deviceMetrics.put("width", 430);
-        deviceMetrics.put("height", 932);
+        deviceMetrics.put("width", 344);
+        deviceMetrics.put("height", 882);
         Map<String, Object> mobileEmulation = new HashMap<>();
         mobileEmulation.put("deviceMetrics", deviceMetrics);
+
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
+//        chromeOptions.addArguments("--headless=new");
 
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.get("https://www.selenium.dev/");
-        Assert.assertEquals(driver.getTitle(), "Selenium");
-        driver.quit();
+        Assert.assertEquals(driver.getTitle(),"Selenium");
+//        driver.quit();
     }
 
     @Test
-    void openBrowserWithOldVersion() {
+    void openBrowserWithOldVersion(){
         ChromeOptions chromeOptions = new ChromeOptions();
-        // old
         chromeOptions.setBrowserVersion("125");
-        // beta
-        //chromeOptions.setBrowserVersion("131.0.6752.0");
 
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.get("https://www.selenium.dev/");
-        Assert.assertEquals(driver.getTitle(), "Selenium");
+        Assert.assertEquals(driver.getTitle(),"Selenium");
         driver.quit();
     }
 
     @Test
-    void fakeGeoLocation() {
+    void openBrowserWithBetaVersion(){
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setBrowserVersion("131");
+
+        WebDriver driver = new ChromeDriver(chromeOptions);
+        driver.get("https://www.selenium.dev/");
+        Assert.assertEquals(driver.getTitle(),"Selenium");
+        driver.quit();
+    }
+
+    @Test
+    void openBrowserWithFakeGeoLocation(){
         WebDriver driver = new ChromeDriver();
         DevTools devTools = ((HasDevTools) driver).getDevTools();
         devTools.createSession();
+        // Mountain view
         devTools.send(Emulation.setGeolocationOverride(
-                Optional.of(37.774929),
-                Optional.of(-122.419416),
-                Optional.of(1)));
+                Optional.of(37.386052),
+                Optional.of(-122.083851),
+                Optional.of(1)
+        ));
         driver.get("https://the-internet.herokuapp.com/geolocation");
-
         driver.findElement(By.xpath("//button[.='Where am I?']")).click();
-        Assert.assertEquals(driver.findElement(By.cssSelector("#lat-value")).getText(), "37.774929");
-        Assert.assertEquals(driver.findElement(By.cssSelector("#long-value")).getText(), "-122.419416");
+        Assert.assertEquals(driver.findElement(By.cssSelector("#lat-value")).getText(),"37.386052");
+        Assert.assertEquals(driver.findElement(By.cssSelector("#long-value")).getText(),"-122.083851");
+
+        driver.quit();
     }
 
     @Test
-    void interceptionNetwork() {
+    void interceptionNetwork(){
         WebDriver driver = new ChromeDriver();
         DevTools devTool = ((HasDevTools) driver).getDevTools();
 
@@ -113,29 +125,42 @@ public class ChromeBrowserTest {
         driver.get("https://selenium.dev");
     }
 
-        @Test
-    void captureWebPerformanceMetrics() {
-        WebDriver driver = new ChromeDriver();
-        DevTools devTools = ((HasDevTools) driver).getDevTools();
+    @Test
+    void openSeleniumHomePageAndCapturePerformanceMetrics(){
+        ChromeDriver driver = new ChromeDriver();
+        DevTools devTools = driver.getDevTools();
         devTools.createSession();
         devTools.send(Performance.enable(Optional.empty()));
+        List<Metric> metricList = devTools.send(Performance.getMetrics());
+        driver.get("https://selenium.dev");
 
-        driver.get("https://www.google.org");
+        Assert.assertEquals(driver.getTitle(),"Selenium");
+        driver.quit();
 
-        List<Metric> metrics = devTools.send(Performance.getMetrics());
-        List<String> metricNames = metrics.stream()
-                .map(o -> o.getName())
-                .collect(Collectors.toList());
+        for(Metric m : metricList) {
+            System.out.println(m.getName() + " = " + m.getValue());
+        }
+    }
 
-        devTools.send(Performance.disable());
+    @Test
+    void simulate3GNetworkCondition(){
+        ChromeDriver driver = new ChromeDriver();
+        DevTools devTools = driver.getDevTools();
+        devTools.createSession();
+        // Enable Network emulation
+        devTools.send(Network.enable(Optional.of(100000000), Optional.empty(), Optional.empty()));
 
-        List<String> metricsToCheck = Arrays.asList(
-                "Timestamp", "Documents", "Frames", "JSEventListeners",
-                "LayoutObjects", "MediaKeySessions", "Nodes",
-                "Resources", "DomContentLoaded", "NavigationStart");
-
-        metricsToCheck.forEach(metric -> System.out.println(metric +
-                " is : " + metrics.get(metricNames.indexOf(metric)).getValue()));
+        // Set network conditions to emulate 3G or 4G
+        devTools.send(Network.emulateNetworkConditions(
+                false,
+                100,
+                75000,
+                25000,
+                Optional.of(ConnectionType.CELLULAR2G),
+                Optional.of(0),
+                Optional.of(0),
+                Optional.of(false)
+        ));
         driver.get("https://selenium.dev");
     }
 }

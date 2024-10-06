@@ -113,7 +113,7 @@ public class ChromeBrowserTest {
         driver.get("https://selenium.dev");
     }
 
-        @Test
+    @Test
     void captureWebPerformanceMetrics() {
         WebDriver driver = new ChromeDriver();
         DevTools devTools = ((HasDevTools) driver).getDevTools();

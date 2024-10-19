@@ -2,11 +2,16 @@ package theInternet;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.time.Duration;
+import java.util.List;
 
 public class DropDownTest {
 
@@ -51,38 +56,48 @@ public class DropDownTest {
         driver.quit();
     }
 
-    /*
-     Open Browser
-     Navigate to https://www.vietnamairlines.com/vn/en/home
-     Agree Cookies
-     Select To City
-     Select One Way
-     Select Depart date [X]
-     */
     @Test
     void ableSelectDateForFlight() throws InterruptedException {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--disable-popup-blocking");
-
-        WebDriver driver = new ChromeDriver(chromeOptions);
+        WebDriver driver = new ChromeDriver();
         driver.get("https://www.vietnamairlines.com/vn/en/home");
-        Thread.sleep(1000);
-        driver.findElement(By.id("cookie-agree")).click();
-        Thread.sleep(5000);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cookie-agree"))).click();
+
+        //select city
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("city-to-roundtrip"))).click();
+
+        wait
+                .until(ExpectedConditions
+                        .visibilityOfAllElementsLocatedBy(
+                                By.cssSelector("#to-bookYourTripTo-vietnam div"))
+                )
+                .stream()
+                .filter(row ->row.getText().contains("Hanoi (HAN), Vietnam"))
+                .findFirst()
+                .ifPresent(WebElement::click);
 
 
-        // Select one way
-//        driver.findElement(By.id("oneway")).click();
-        //select to city
-        driver.findElement(By.id("city-to-roundtrip")).click();
-        Thread.sleep(1000);
-        driver.findElement(By.xpath("//div[.='Hanoi (HAN), Vietnam']")).click();
-        Thread.sleep(5000);
+        // select depart date
+        WebElement dateWidgetFrom = wait.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("#byt-datespicker .ui-datepicker-calendar"))).get(0);
 
-        // Click on Depart Date
-//        driver.findElement(By.xpath("//a[@class='ui-state-default ui-state-active' and text()='26']/..")).click();
-//        driver.findElement(By.xpath("//td[@data-month='9' and @data-year='2024']/a[@class='ui-state-default ui-state-active' and text()='30']")).click();
-        driver.findElement(By.className("confirm-dates")).click();
+        List<WebElement> dateCells = dateWidgetFrom.findElements(By.tagName("td"));
+        dateCells.stream()
+                .filter(element -> element.getText().contains("26"))
+                .findFirst()
+                .ifPresent(WebElement::click);
 
+        // select return date
+        wait.until(
+                        ExpectedConditions
+                                .visibilityOfAllElementsLocatedBy(
+                                        By.cssSelector("#byt-datespicker .ui-datepicker-calendar")))
+                .get(0)
+                .findElements(By.tagName("td"))
+                .stream()
+                .filter(cell -> cell.getText().contains("31"))
+                .findFirst()
+                .ifPresent(WebElement::click);
     }
 }

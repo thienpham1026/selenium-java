@@ -38,7 +38,7 @@ public class FormAuthenticationTest {
 
         driver.findElement(By.xpath("//button[@type='submit']")).click();
 
-        Assert.assertEquals(driver.getCurrentUrl(),"https://the-internet.herokuapp.com/login");
+        Assert.assertTrue(driver.findElement(By.className("error")).getText().contains("Your username is invalid!"));
         driver.quit();
     }
 

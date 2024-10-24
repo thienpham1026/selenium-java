@@ -28,4 +28,29 @@ public class PracticesTest {
     void verify_no_findNonRepeatingCharacter(){
         Assert.assertEquals("No non-repeating character found", Practices.findNonRepeatingCharacter("hhhh"));
     }
+
+    @Test
+    void verify_returnFirstAlphabet(){
+        Assert.assertEquals("HIaJ", Practices.returnFirstAlphabet("Hello I am Japneet"));
+    }
+
+    @Test
+    void verify_removeSpecialCharacters(){
+        Assert.assertEquals("Hello Japneet", Practices.removeSpecialCharacters("Hello^^%#$(!)_+ J@apneet"));
+    }
+
+    @Test
+    void verify_getSentenceWithoutDuplicates(){
+        Assert.assertEquals("Hello I", Practices.getSentenceWithoutDuplicates("Hello I am Japneet Japneet am"));
+    }
+
+    @Test
+    void verify_removeWhiteSpace(){
+        Assert.assertEquals("HelloJapneet", Practices.removeWhiteSpace("         Hello              Japne     et         "));
+    }
+
+    @Test
+    void verify_getReverseOfString(){
+        Assert.assertEquals("dlroW olleH", Practices.getReverseOfString("Hello World"));
+    }
 }

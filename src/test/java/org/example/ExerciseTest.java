@@ -97,4 +97,14 @@ public class ExerciseTest {
         }
     }
 
+    @Test
+    void verify_isPasswordComplex() {
+        Assert.assertTrue(Exercise.isPasswordComplex("Password1!"));
+    }
+
+    @Test
+    void verify_isPasswordNotComplex() {
+        Assert.assertFalse(Exercise.isPasswordComplex("password"));
+    }
+
 }

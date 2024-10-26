@@ -6,10 +6,8 @@ public class ConvertArray {
     public static void main(String[] args) {
         int[] A = {3, 8, 0, 9};
 
-        // find number
         findNumber(A);
 
-        // cong 1 vao mang
         addOneToArray(A);
     }
 

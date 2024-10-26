@@ -3,22 +3,10 @@ package org.example;
 public class PasswordValidator {
 
     public static void main(String[] args) {
-        // Example
         System.out.println(is_valid_password("Password1!"));  // true
         System.out.println(is_valid_password("password"));    // false
     }
 
-    /**
-     * ## Password Complexity
-     * * len > 8 characters
-     * * include number
-     * * include lowercases
-     * * include uppercases
-     * * include !@#$%^&*()
-     * * * **create a function**:
-     * * - String as input
-     * * - Boolean as output
-     */
     public static boolean is_valid_password(String password) {
         return check_password_len(password)
                 && check_contain_lower(password)

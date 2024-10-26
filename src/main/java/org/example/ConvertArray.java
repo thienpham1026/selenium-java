@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Arrays;
 
-public class Convert {
+public class ConvertArray {
     public static void main(String[] args) {
         int[] A = {3, 8, 0, 9};
 

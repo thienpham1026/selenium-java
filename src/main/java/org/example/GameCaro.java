@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.*;
 
-public class Caro {
+public class GameCaro {
     public static String[][] board = new String[3][3];
     public static String machine = "O";
     public static String human = "X";

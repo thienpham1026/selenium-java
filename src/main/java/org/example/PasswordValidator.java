@@ -6,14 +6,6 @@ public class PasswordValidator {
         // Example
         System.out.println(is_valid_password("Password1!"));  // true
         System.out.println(is_valid_password("password"));    // false
-
-        String password = "Thien@123#";
-
-        if (is_valid_password(password)) {
-            System.out.println("password is valid");
-        } else {
-            System.out.println("password is invalid");
-        }
     }
 
     /**
@@ -35,11 +27,11 @@ public class PasswordValidator {
                 && check_special_char(password);
     }
 
-    public static boolean check_password_len(String password) {
+    private static boolean check_password_len(String password) {
         return password.length() >= 8;
     }
 
-    public static boolean check_contain_lower(String password) {
+    private static boolean check_contain_lower(String password) {
         for (int i = 0; i < password.length(); i++) {
 
             if (Character.isLowerCase(password.charAt(i))) {
@@ -49,7 +41,7 @@ public class PasswordValidator {
         return false;
     }
 
-    public static boolean check_contain_upper(String password) {
+    private static boolean check_contain_upper(String password) {
         for (int i = 0; i < password.length(); i++) {
 
             if (Character.isUpperCase(password.charAt(i))) {
@@ -59,7 +51,7 @@ public class PasswordValidator {
         return false;
     }
 
-    public static boolean check_contain_digit(String password) {
+    private static boolean check_contain_digit(String password) {
         for (int i = 0; i < password.length(); i++) {
 
             if (Character.isDigit(password.charAt(i))) {
@@ -69,7 +61,7 @@ public class PasswordValidator {
         return false;
     }
 
-    public static boolean check_special_char(String password) {
+    private static boolean check_special_char(String password) {
         for (int i = 0; i < password.length(); i++) {
             if ("!@#$%^&*()".contains(String.valueOf(password.charAt(i)))) {
                 return true;

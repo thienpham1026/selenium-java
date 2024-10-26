@@ -59,6 +59,7 @@ public class DropDownTest {
     @Test
     void ableSelectDateForFlight() throws InterruptedException {
         WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
         driver.get("https://www.vietnamairlines.com/vn/en/home");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 

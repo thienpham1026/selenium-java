@@ -28,7 +28,7 @@ public class DropDownTest {
     }
 
     @Test
-    void ableSelectMultipleOptions(){
+    void ableSelectMultipleOptions() {
         WebDriver driver = new ChromeDriver();
         driver.get("https://output.jsbin.com/osebed/2");
 
@@ -74,7 +74,7 @@ public class DropDownTest {
                                 By.cssSelector("#to-bookYourTripTo-vietnam div"))
                 )
                 .stream()
-                .filter(row ->row.getText().contains("Hanoi (HAN), Vietnam"))
+                .filter(row -> row.getText().contains("Hanoi (HAN), Vietnam"))
                 .findFirst()
                 .ifPresent(WebElement::click);
 

@@ -67,4 +67,30 @@ public class DatePickerTest {
 
         driver.quit();
     }
+
+    public static void main(String[] args) {
+        // Define the date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        // Create the date string
+        String dateString = "31/10/2024";
+
+        try {
+            // Parse the date string into a Date object
+            Date date = dateFormat.parse(dateString);
+
+            // Create a Calendar object and set the date
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            // Get the day of the month
+            int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+            // Print the day of the month
+            System.out.println("Day: " + dayOfMonth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

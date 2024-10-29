@@ -100,6 +100,8 @@ public class DropDownTest {
                 .filter(cell -> cell.getText().contains("31"))
                 .findFirst()
                 .ifPresent(WebElement::click);
+
+        driver.quit();
     }
 
     @Test
@@ -108,10 +110,21 @@ public class DropDownTest {
         driver.manage().window().maximize();
         driver.get("https://www.vietnamairlines.com/vn/en/home");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cookie-agree"))).click();
 
-        // select depart date
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("roundtrip-date-depart"))).click();
+        //select city
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("city-to-roundtrip"))).click();
+
+        wait
+                .until(ExpectedConditions
+                        .visibilityOfAllElementsLocatedBy(
+                                By.cssSelector("#to-bookYourTripTo-vietnam div"))
+                )
+                .stream()
+                .filter(row -> row.getText().contains("Hanoi (HAN), Vietnam"))
+                .findFirst()
+                .ifPresent(WebElement::click);
 
         wait
                 .until(
@@ -140,5 +153,7 @@ public class DropDownTest {
                 .ifPresent(WebElement::click);
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(.,'Done')]"))).click();
+
+        driver.quit();
     }
 }

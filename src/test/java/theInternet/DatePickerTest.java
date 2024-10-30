@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -93,20 +94,14 @@ public class DatePickerTest {
         catch (ParseException e) {
             e.printStackTrace();
         }
-        
-public static void main(String[] args) {
+
         LocalDate today = LocalDate.now();
 
         // Get the day of the month
         int dayOfMonth = today.getDayOfMonth();
 
-        // next 7 days
-//        today.plusDays(7).getDayOfMonth();
-
         // Print the current day of the month
         System.out.println("Current Day of the Month: " + dayOfMonth);
         System.out.println("Next Day of the Month: " + today.plusDays(7).getDayOfMonth());
-
-    }
     }
 }

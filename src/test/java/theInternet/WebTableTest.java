@@ -17,7 +17,10 @@ public class WebTableTest {
 
     @Test
     void dataTables() {
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless=new");
+
+        WebDriver = new ChromeDriver(chromeOptions);
         driver.get("https://the-internet.herokuapp.com/tables");
 
         double[] dueValue = driver
@@ -50,7 +53,10 @@ public class WebTableTest {
 
     @Test
     void tc05(){
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless=new");
+
+        WebDriver = new ChromeDriver(chromeOptions);
         driver.get("https://the-internet.herokuapp.com/tables");
 
         List<Person> table1Person = new ArrayList<>();
@@ -98,7 +104,10 @@ public class WebTableTest {
     WebDriver driver;
     @BeforeClass
     void setUp(){
-        driver = new ChromeDriver();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless=new");
+
+        driver = new ChromeDriver(chromeOptions);
         driver.get("https://the-internet.herokuapp.com/tables");
 
         table1Person = new ArrayList<>();

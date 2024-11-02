@@ -3,6 +3,7 @@
         <classes>
             <class name="theInternet.WebTableTest"/>
             <class name="org.example.PracticesTest"/>
+            <class name="org.example.ExerciseTest"/>
         </classes>
     </test>
 </suite>

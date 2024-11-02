@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class NestedFramTest {
+public class NestedFrameTest {
     @Test
     void verifyFrameContent(){
         WebDriver driver = new ChromeDriver();

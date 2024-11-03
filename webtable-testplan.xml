@@ -1,7 +1,10 @@
 <suite name="Default Suite">
     <test name="Chrome Browser">
-        <packages>
-            <package name="theInternet" />
-        </packages>
+        <classes>
+            <class name="theInternet.WebTableTest"/>
+            <class name="theInternet.CheckboxesTest"/>
+            <class name="org.example.PracticesTest"/>
+            <class name="org.example.ExerciseTest"/>
+        </classes>
     </test>
 </suite>

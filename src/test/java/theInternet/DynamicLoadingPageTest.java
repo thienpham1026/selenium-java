@@ -3,6 +3,7 @@ package theInternet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -13,6 +14,9 @@ public class DynamicLoadingPageTest {
 
     @Test
     void handleWaitLoadingSuccess() {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless=new");
+
         WebDriver driver = new ChromeDriver();
         driver.get("https://the-internet.herokuapp.com/dynamic_loading/1");
 

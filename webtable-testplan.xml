@@ -1,7 +1,6 @@
 <suite name="Default Suite">
     <test name="Chrome Browser">
         <packages>
-        <classes>
             <package name="org/example" />
         </packages>
         <classes>

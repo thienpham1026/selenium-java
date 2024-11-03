@@ -1,7 +1,7 @@
 <suite name="Default Suite">
     <test name="Chrome Browser">
         <packages>
-            <package name="org/example" />
+            <package name="org.example" />
         </packages>
         <classes>
             <class name="theInternet.WebTableTest"/>

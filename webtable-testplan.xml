@@ -7,6 +7,7 @@
             <class name="theInternet.WebTableTest"/>
             <class name="theInternet.CheckboxesTest"/>
             <class name="theInternet.DynamicLoadingPageTest"/>
+            <class name="theInternet.FormAuthenticationTest" />
         </classes>
     </test>
 </suite>

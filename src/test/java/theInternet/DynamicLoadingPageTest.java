@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import java.time.Duration;
 
 public class DynamicLoadingPageTest {
@@ -25,7 +26,7 @@ public class DynamicLoadingPageTest {
         driver.findElement(By.xpath("//button[.='Start']")).click();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        String content  = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#finish > h4"))).getText();
+        String content = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#finish > h4"))).getText();
 
         Assert.assertEquals(content, "Hello World!");
     }

@@ -15,7 +15,7 @@ public class NestedFrameTest {
     }
 
     @Test
-    void verifyFrameContent(){
+    void verifyFrameContent() {
         WebDriver driver = BrowserUtils.getDriver();
         driver.get("https://the-internet.herokuapp.com/nested_frames");
 

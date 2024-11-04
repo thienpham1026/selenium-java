@@ -19,8 +19,8 @@ public class CheckboxesTest {
     }
 
     @Test
-    void  ableSelectACheckboxes() {
-        WebElement checkbox1 =  driver.findElement(By.cssSelector("#checkboxes input:nth-child(1)"));
+    void ableSelectACheckboxes() {
+        WebElement checkbox1 = driver.findElement(By.cssSelector("#checkboxes input:nth-child(1)"));
 
         if (!checkbox1.isSelected()) {
             checkbox1.click();
@@ -28,8 +28,8 @@ public class CheckboxesTest {
     }
 
     @Test
-    void  ableUnSelectACheckboxes() {
-        WebElement checkbox2 =  driver.findElement(By.xpath("//form[@id='checkboxes']/input[2]"));
+    void ableUnSelectACheckboxes() {
+        WebElement checkbox2 = driver.findElement(By.xpath("//form[@id='checkboxes']/input[2]"));
 
         if (checkbox2.isSelected()) {
             checkbox2.click();

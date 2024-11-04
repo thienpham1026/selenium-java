@@ -90,8 +90,7 @@ public class DatePickerTest {
 
             // Print the day of the month
             System.out.println("Day: " + dayOfMonth);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 

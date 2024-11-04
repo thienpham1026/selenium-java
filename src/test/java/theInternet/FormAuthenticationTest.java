@@ -18,17 +18,17 @@ public class FormAuthenticationTest {
     }
 
     @Test
-    void shouldBeSuccessfully(){
+    void shouldBeSuccessfully() {
         driver.findElement(By.id("username")).sendKeys("tomsmith");
         driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");
 
         driver.findElement(By.cssSelector("button[type=submit]")).click();
 
-        Assert.assertEquals(driver.getCurrentUrl(),"https://the-internet.herokuapp.com/secure");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://the-internet.herokuapp.com/secure");
     }
 
     @Test
-    void shouldBeInValidUsername(){
+    void shouldBeInValidUsername() {
         driver.findElement(By.id("username")).sendKeys("thienpt");
         driver.findElement(By.cssSelector("[type=password]")).sendKeys("SuperSecretPassword!");
 
@@ -38,7 +38,7 @@ public class FormAuthenticationTest {
     }
 
     @Test
-    void shouldBeInvalidPassword(){
+    void shouldBeInvalidPassword() {
         driver.findElement(By.id("username")).sendKeys("tomsmith");
         driver.findElement(By.cssSelector("[type=password]")).sendKeys("superSecretPassword!");
 

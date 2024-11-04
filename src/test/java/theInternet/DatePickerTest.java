@@ -76,9 +76,7 @@ public class DatePickerTest {
 
     @AfterClass
     void tearDown() {
-        if (BrowserUtils.getDriver() != null) {
-            BrowserUtils.getDriver().quit();
-        }
+        BrowserUtils.quit();
     }
 
     public static void main(String[] args) {

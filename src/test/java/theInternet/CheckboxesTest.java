@@ -40,8 +40,6 @@ public class CheckboxesTest {
 
     @AfterClass
     void tearDown() {
-        if (BrowserUtils.getDriver() != null) {
-            BrowserUtils.getDriver().quit();
-        }
+        BrowserUtils.quit();
     }
 }

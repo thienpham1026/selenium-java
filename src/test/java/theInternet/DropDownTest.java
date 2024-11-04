@@ -55,8 +55,6 @@ public class DropDownTest {
 
     @AfterClass
     void tearDown() {
-        if (BrowserUtils.getDriver() != null) {
-            BrowserUtils.getDriver().quit();
-        }
+        BrowserUtils.quit();
     }
 }

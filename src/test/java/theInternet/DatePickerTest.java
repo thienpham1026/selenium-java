@@ -46,7 +46,7 @@ public class DatePickerTest {
                                         By
                                                 .cssSelector("#byt-datespicker .ui-datepicker-calendar")))
                 .get(0) // get current month
-                .findElements(By.tagName("td"))
+                .findElements(By.tagName("a"))
                 .stream()
                 .filter(cell -> cell.getText().contains("31"))
                 .findFirst()
@@ -59,7 +59,7 @@ public class DatePickerTest {
                                         By
                                                 .cssSelector("#byt-datespicker .ui-datepicker-calendar")))
                 .get(1) // get next month
-                .findElements(By.tagName("td"))
+                .findElements(By.tagName("a"))
                 .stream()
                 .filter(cell -> cell.getText().contains("5"))
                 .findFirst()

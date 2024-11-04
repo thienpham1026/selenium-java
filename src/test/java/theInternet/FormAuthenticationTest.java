@@ -2,25 +2,28 @@ package theInternet;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class FormAuthenticationTest {
-    WebDriver driver;
 
-    @BeforeMethod
-    void setup()
-    {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless=new");
-        driver = new ChromeDriver(chromeOptions);
+    @BeforeClass
+    void setup() {
+        BrowserUtils.launch("chrome");
+    }
+
+    @AfterClass
+    void tearDown() {
+        if (BrowserUtils.getDriver() != null) {
+            BrowserUtils.getDriver().quit();
+        }
     }
 
     @Test
     void shouldBeSuccessfully(){
+        WebDriver driver = BrowserUtils.getDriver();
         driver.get("https://the-internet.herokuapp.com/login");
 
         driver.findElement(By.id("username")).sendKeys("tomsmith");
@@ -29,11 +32,11 @@ public class FormAuthenticationTest {
         driver.findElement(By.cssSelector("button[type=submit]")).click();
 
         Assert.assertEquals(driver.getCurrentUrl(),"https://the-internet.herokuapp.com/secure");
-        driver.quit();
     }
 
     @Test
     void shouldBeInValidUsername(){
+        WebDriver driver = BrowserUtils.getDriver();
         driver.get("https://the-internet.herokuapp.com/login");
 
         driver.findElement(By.id("username")).sendKeys("thienpt");
@@ -42,11 +45,11 @@ public class FormAuthenticationTest {
         driver.findElement(By.xpath("//button[@type='submit']")).click();
 
         Assert.assertTrue(driver.findElement(By.className("error")).getText().contains("Your username is invalid!"));
-        driver.quit();
     }
 
     @Test
     void shouldBeInvalidPassword(){
+        WebDriver driver = BrowserUtils.getDriver();
         driver.get("https://the-internet.herokuapp.com/login");
 
         driver.findElement(By.id("username")).sendKeys("tomsmith");
@@ -55,6 +58,5 @@ public class FormAuthenticationTest {
         driver.findElement(By.xpath("//button[@type='submit']")).click();
 
         Assert.assertTrue(driver.findElement(By.className("error")).getText().contains("Your password is invalid!"));
-        driver.quit();
     }
 }

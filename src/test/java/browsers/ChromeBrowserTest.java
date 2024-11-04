@@ -6,11 +6,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v130.emulation.Emulation;
-import org.openqa.selenium.devtools.v130.network.Network;
-import org.openqa.selenium.devtools.v130.network.model.ConnectionType;
-import org.openqa.selenium.devtools.v130.performance.Performance;
-import org.openqa.selenium.devtools.v130.performance.model.Metric;
+import org.openqa.selenium.devtools.v129.emulation.Emulation;
+import org.openqa.selenium.devtools.v129.network.Network;
+import org.openqa.selenium.devtools.v129.network.model.ConnectionType;
+import org.openqa.selenium.devtools.v129.performance.Performance;
+import org.openqa.selenium.devtools.v129.performance.model.Metric;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

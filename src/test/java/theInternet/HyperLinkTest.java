@@ -14,13 +14,6 @@ public class HyperLinkTest {
         BrowserUtils.launch("chrome");
     }
 
-    @AfterClass
-    void tearDown() {
-        if (BrowserUtils.getDriver() != null) {
-            BrowserUtils.getDriver().quit();
-        }
-    }
-
     @Test
     void verifyNavigateHyperLink() {
         WebDriver driver = BrowserUtils.getDriver();
@@ -47,5 +40,12 @@ public class HyperLinkTest {
         driver.findElement(By.linkText("500")).click();
         Assert.assertEquals(driver.getCurrentUrl(), href);
         driver.navigate().back();
+    }
+
+    @AfterClass
+    void tearDown() {
+        if (BrowserUtils.getDriver() != null) {
+            BrowserUtils.getDriver().quit();
+        }
     }
 }

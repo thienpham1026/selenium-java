@@ -19,16 +19,10 @@ public class HoverTest {
                 {2, "name: user3"},
         };
     }
+
     @BeforeClass
     void setup() {
         BrowserUtils.launch("chrome");
-    }
-
-    @AfterClass
-    void tearDown() {
-        if (BrowserUtils.getDriver() != null) {
-            BrowserUtils.getDriver().quit();
-        }
     }
 
     @Test(dataProvider = "testData")
@@ -47,5 +41,12 @@ public class HoverTest {
 
         String imageName = driver.findElements(By.cssSelector(".figcaption h5")).get(imageIndex).getText();
         Assert.assertEquals(imageName, expectedImageName);
+    }
+
+    @AfterClass
+    void tearDown() {
+        if (BrowserUtils.getDriver() != null) {
+            BrowserUtils.getDriver().quit();
+        }
     }
 }

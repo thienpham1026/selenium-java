@@ -17,13 +17,6 @@ public class DynamicLoadingPageTest {
         BrowserUtils.launch("chrome");
     }
 
-    @AfterClass
-    void tearDown() {
-        if (BrowserUtils.getDriver() != null) {
-            BrowserUtils.getDriver().quit();
-        }
-    }
-
     @Test
     void handleWaitLoadingSuccess() {
         WebDriver driver = BrowserUtils.getDriver();
@@ -35,5 +28,12 @@ public class DynamicLoadingPageTest {
         String content  = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#finish > h4"))).getText();
 
         Assert.assertEquals(content, "Hello World!");
+    }
+
+    @AfterClass
+    void tearDown() {
+        if (BrowserUtils.getDriver() != null) {
+            BrowserUtils.getDriver().quit();
+        }
     }
 }

@@ -12,7 +12,7 @@ public class Person {
     }
 
     public double getDue() {
-        return Double.parseDouble(due.replace("$",""));
+        return Double.parseDouble(due.replace("$", ""));
     }
 
     public String getFullName() {

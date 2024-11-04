@@ -15,13 +15,6 @@ public class DropDownTest {
         BrowserUtils.launch("chrome");
     }
 
-    @AfterClass
-    void tearDown() {
-        if (BrowserUtils.getDriver() != null) {
-            BrowserUtils.getDriver().quit();
-        }
-    }
-
     @Test
     void ableSelectOption() {
         WebDriver driver = BrowserUtils.getDriver();
@@ -58,5 +51,12 @@ public class DropDownTest {
         Assert.assertFalse(driver.findElement(By.xpath("//*[@id='fruits']/option[@value='apple']")).isSelected());
         Assert.assertFalse(driver.findElement(By.xpath("//*[@id='fruits']/option[@value='orange']")).isSelected());
         Assert.assertFalse(driver.findElement(By.xpath("//*[@id='fruits']/option[@value='grape']")).isSelected());
+    }
+
+    @AfterClass
+    void tearDown() {
+        if (BrowserUtils.getDriver() != null) {
+            BrowserUtils.getDriver().quit();
+        }
     }
 }

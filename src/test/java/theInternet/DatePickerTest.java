@@ -54,7 +54,7 @@ public class DatePickerTest {
                 .get(0) // get current month
                 .findElements(By.tagName("a"))
                 .stream()
-                .filter(cell -> cell.getText().contains("10"))
+                .filter(cell -> cell.getText().contains("29"))
                 .findFirst()
                 .ifPresent(WebElement::click);
 
@@ -67,7 +67,7 @@ public class DatePickerTest {
                 .get(1) // get next month
                 .findElements(By.tagName("a"))
                 .stream()
-                .filter(cell -> cell.getText().contains("15"))
+                .filter(cell -> cell.getText().contains("2"))
                 .findFirst()
                 .ifPresent(WebElement::click);
 

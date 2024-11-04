@@ -4,12 +4,20 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class NestedFrameTest {
+
+    @BeforeClass
+    void setUp() {
+        BrowserUtils.launch("chrome");
+    }
+
     @Test
     void verifyFrameContent(){
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = BrowserUtils.getDriver();
         driver.get("https://the-internet.herokuapp.com/nested_frames");
 
         driver.switchTo().frame("frame-top");
@@ -27,7 +35,12 @@ public class NestedFrameTest {
         driver.switchTo().defaultContent();
         driver.switchTo().frame("frame-bottom");
         Assert.assertTrue(driver.findElement(By.tagName("body")).getText().contains("BOTTOM"));
+    }
 
-        driver.quit();
+    @AfterClass
+    void tearDown() {
+        if (BrowserUtils.getDriver() != null) {
+            BrowserUtils.getDriver().quit();
+        }
     }
 }

@@ -2,13 +2,7 @@
     <test name="Chrome Browser">
         <packages>
             <package name="org.example" />
+            <package name="theInternet" />
         </packages>
-        <classes>
-            <class name="theInternet.BrowserUtils"/>
-            <class name="theInternet.WebTableTest"/>
-            <class name="theInternet.CheckboxesTest"/>
-            <class name="theInternet.DynamicLoadingPageTest"/>
-            <class name="theInternet.FormAuthenticationTest" />
-        </classes>
     </test>
 </suite>

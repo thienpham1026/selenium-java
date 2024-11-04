@@ -3,9 +3,10 @@ package theInternet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.text.ParseException;
@@ -17,9 +18,14 @@ import java.util.Date;
 
 public class DatePickerTest {
 
+    @BeforeClass
+    void setup() {
+        BrowserUtils.launch("chrome");
+    }
+
     @Test
     void selectADate() {
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = BrowserUtils.getDriver();
         driver.manage().window().maximize();
         driver.get("https://www.vietnamairlines.com/vn/en/home");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -35,7 +41,7 @@ public class DatePickerTest {
                                 By.cssSelector("#to-bookYourTripTo-vietnam div"))
                 )
                 .stream()
-                .filter(row -> row.getText().contains("Hanoi (HAN), Vietnam"))
+                .filter(row -> row.getText().contains("Ho Chi Minh City (SGN), Vietnam"))
                 .findFirst()
                 .ifPresent(WebElement::click);
 
@@ -48,7 +54,7 @@ public class DatePickerTest {
                 .get(0) // get current month
                 .findElements(By.tagName("a"))
                 .stream()
-                .filter(cell -> cell.getText().contains("31"))
+                .filter(cell -> cell.getText().contains("10"))
                 .findFirst()
                 .ifPresent(WebElement::click);
 
@@ -61,13 +67,18 @@ public class DatePickerTest {
                 .get(1) // get next month
                 .findElements(By.tagName("a"))
                 .stream()
-                .filter(cell -> cell.getText().contains("5"))
+                .filter(cell -> cell.getText().contains("15"))
                 .findFirst()
                 .ifPresent(WebElement::click);
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(.,'Done')]"))).click();
+    }
 
-        driver.quit();
+    @AfterClass
+    void tearDown() {
+        if (BrowserUtils.getDriver() != null) {
+            BrowserUtils.getDriver().quit();
+        }
     }
 
     public static void main(String[] args) {

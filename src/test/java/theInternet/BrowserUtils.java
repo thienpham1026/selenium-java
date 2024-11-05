@@ -23,7 +23,7 @@ public class BrowserUtils {
             name = "chrome";
         }
 
-        switch (name.toLowerCase()) {
+        switch (name.toLowerCase().trim()) {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
@@ -47,8 +47,8 @@ public class BrowserUtils {
         }
 
         // Initialize Actions and WebDriverWait
-        mouse = new Actions(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        mouse = new Actions(getDriver());
+        wait = new WebDriverWait(getDriver(), Duration.ofSeconds(30));
     }
 
     public static WebDriver getDriver() {

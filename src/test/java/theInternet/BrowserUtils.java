@@ -13,9 +13,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
 
 public class BrowserUtils {
-    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    private static ThreadLocal<Actions> mouse = new ThreadLocal<>();
-    private static ThreadLocal<WebDriverWait> wait = new ThreadLocal<>();
+    private static WebDriver driver;
+    private static Actions mouse;
+    private static WebDriverWait wait;
 
     public static void launch(String name) {
         // Default to Chrome if name is null or empty
@@ -29,17 +29,17 @@ public class BrowserUtils {
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--headless=new");
                 
-                driver.set(new ChromeDriver(chromeOptions));
+                driver = new ChromeDriver(chromeOptions);
                 break;
 
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
-                driver.set(new FirefoxDriver());
+                driver = new FirefoxDriver();
                 break;
 
             case "edge":
                 WebDriverManager.edgedriver().setup();
-                driver.set(new EdgeDriver());
+                driver = new EdgeDriver();
                 break;
 
             default:
@@ -47,28 +47,26 @@ public class BrowserUtils {
         }
 
         // Initialize Actions and WebDriverWait
-        mouse.set(new Actions(driver.get()));
-        wait.set(new WebDriverWait(driver.get(), Duration.ofSeconds(30)));
+        mouse = new Actions(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
     public static WebDriver getDriver() {
-        return driver.get();
+        return driver;
     }
 
     public static Actions getMouse() {
-        return mouse.get();
+        return mouse;
     }
 
     public static WebDriverWait getWait() {
-        return wait.get();
+        return wait;
     }
 
     public static void quit() {
-        if (driver.get() != null) {
-            driver.get().quit();
-            driver.remove();
-            mouse.remove();
-            wait.remove();
+        if (driver != null) {
+            driver.quit();
+            driver = null;
         }
     }
 }

@@ -11,6 +11,7 @@ public class FormAuthenticationPage {
     By passwordTextBox = By.id("password");
     By loginButton = By.cssSelector("button[type=submit]");
     By successFlashMessage = By.className("success");
+    By errorFlashMessage = By.className("error");
 
     public FormAuthenticationPage() {
         this.driver = Browser.getDriver();
@@ -28,5 +29,10 @@ public class FormAuthenticationPage {
 
     public boolean isLoggedIn() {
         return driver.findElement(successFlashMessage).getText().contains("You logged into a secure area!");
+    }
+
+    public boolean isNotLoggedIn() {
+        return driver.findElement(errorFlashMessage).getText().contains("Your username is invalid!") ||
+                driver.findElement(errorFlashMessage).getText().contains("Your password is invalid!");
     }
 }

@@ -1,53 +1,52 @@
 package theInternet;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import supports.Browser;
 import theInternet.pages.FormAuthenticationPage;
 
 public class FormAuthenticationTest {
 
-    @BeforeClass
-    void setup() {
-        Browser.openBrowser("chrome");
-    }
-
     @Test
     void shouldBeSuccessfully() {
+        Browser.openBrowser("chrome");
 
         FormAuthenticationPage formAuthenticationPage = new FormAuthenticationPage();
         formAuthenticationPage.open();
-        formAuthenticationPage.login("tomsmith","tomsmith");
+        formAuthenticationPage.login("tomsmith","SuperSecretPassword!");
 
+        Assert.assertEquals(Browser.getCurrentUrl(),"https://the-internet.herokuapp.com/secure");
         Assert.assertTrue(formAuthenticationPage.isLoggedIn());
 
-        //Assert.assertEquals(formAuthenticationPage.getCurrentUrl(), "https://the-internet.herokuapp.com/secure");
+        Browser.quit();
     }
 
     @Test
     void shouldBeInValidUsername() {
+        Browser.openBrowser("chrome");
 
-        FormAuthenticationPage loginPage = new FormAuthenticationPage();
-        loginPage.login("thienpt", "SuperSecretPassword!");
+        FormAuthenticationPage formAuthenticationPage = new FormAuthenticationPage();
+        formAuthenticationPage.open();
+        formAuthenticationPage.login("thienpt", "SuperSecretPassword!");
 
-        //Assert.assertTrue(driver.findElement(By.className("error")).getText().contains("Your username is invalid!"));
+        Assert.assertEquals(Browser.getCurrentUrl(),"https://the-internet.herokuapp.com/login");
+        Assert.assertTrue(formAuthenticationPage.isNotLoggedIn());
+
+        Browser.quit();
     }
 
     @Test
     void shouldBeInvalidPassword() {
 
-        FormAuthenticationPage loginPage = new FormAuthenticationPage();
-        loginPage.login("tomsmith", "superSecretPassword!");
+        Browser.openBrowser("chrome");
 
-        //Assert.assertTrue(driver.findElement(By.className("error")).getText().contains("Your password is invalid!"));
-    }
+        FormAuthenticationPage formAuthenticationPage = new FormAuthenticationPage();
+        formAuthenticationPage.open();
+        formAuthenticationPage.login("tomsmith", "superSecretPassword!");
 
-    @AfterClass
-    void tearDown() {
-        BrowserUtils.quit();
+        Assert.assertEquals(Browser.getCurrentUrl(),"https://the-internet.herokuapp.com/login");
+        Assert.assertTrue(formAuthenticationPage.isNotLoggedIn());
+
+        Browser.quit();
     }
 }

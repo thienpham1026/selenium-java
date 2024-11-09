@@ -7,9 +7,12 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,8 +23,8 @@ public class HorizontalSliderTest {
 
     @BeforeClass
     void setup() {
-        BrowserUtils.launch("chrome");
-        driver = BrowserUtils.getDriver();
+        Browser.openBrowser("chrome");
+        driver = Browser.getDriver();
     }
 
     @Test
@@ -83,6 +86,17 @@ public class HorizontalSliderTest {
         File srcFile = scrShot.getScreenshotAs(OutputType.FILE);
         File destFile = new File("target/selenium.png");
         FileUtils.copyFile(srcFile, destFile);
+    }
+
+    @AfterMethod(alwaysRun = true)
+    void captureScreenshot(ITestResult testResult) throws IOException {
+        if (!testResult.isSuccess()) {
+            TakesScreenshot scrShot = ((TakesScreenshot) driver);
+            File srcFile = scrShot.getScreenshotAs(OutputType.FILE);
+            File destFile = new File(String.format("target/%s-%d.png",
+                    testResult.getMethod().getMethodName(), System.currentTimeMillis()));
+            FileUtils.copyFile(srcFile, destFile);
+        }
     }
 
     @AfterClass

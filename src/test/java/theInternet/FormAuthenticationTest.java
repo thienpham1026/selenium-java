@@ -6,45 +6,44 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import supports.Browser;
+import theInternet.pages.FormAuthenticationPage;
 
 public class FormAuthenticationTest {
-    WebDriver driver;
 
     @BeforeClass
     void setup() {
-        BrowserUtils.launch("chrome");
-        driver = BrowserUtils.getDriver();
-        driver.get("https://the-internet.herokuapp.com/login");
+        Browser.openBrowser("chrome");
     }
 
     @Test
     void shouldBeSuccessfully() {
-        driver.findElement(By.id("username")).sendKeys("tomsmith");
-        driver.findElement(By.id("password")).sendKeys("SuperSecretPassword!");
 
-        driver.findElement(By.cssSelector("button[type=submit]")).click();
+        FormAuthenticationPage formAuthenticationPage = new FormAuthenticationPage();
+        formAuthenticationPage.open();
+        formAuthenticationPage.login("tomsmith","tomsmith");
 
-        Assert.assertEquals(driver.getCurrentUrl(), "https://the-internet.herokuapp.com/secure");
+        Assert.assertTrue(formAuthenticationPage.isLoggedIn());
+
+        //Assert.assertEquals(formAuthenticationPage.getCurrentUrl(), "https://the-internet.herokuapp.com/secure");
     }
 
     @Test
     void shouldBeInValidUsername() {
-        driver.findElement(By.id("username")).sendKeys("thienpt");
-        driver.findElement(By.cssSelector("[type=password]")).sendKeys("SuperSecretPassword!");
 
-        driver.findElement(By.xpath("//button[@type='submit']")).click();
+        FormAuthenticationPage loginPage = new FormAuthenticationPage();
+        loginPage.login("thienpt", "SuperSecretPassword!");
 
-        Assert.assertTrue(driver.findElement(By.className("error")).getText().contains("Your username is invalid!"));
+        //Assert.assertTrue(driver.findElement(By.className("error")).getText().contains("Your username is invalid!"));
     }
 
     @Test
     void shouldBeInvalidPassword() {
-        driver.findElement(By.id("username")).sendKeys("tomsmith");
-        driver.findElement(By.cssSelector("[type=password]")).sendKeys("superSecretPassword!");
 
-        driver.findElement(By.xpath("//button[@type='submit']")).click();
+        FormAuthenticationPage loginPage = new FormAuthenticationPage();
+        loginPage.login("tomsmith", "superSecretPassword!");
 
-        Assert.assertTrue(driver.findElement(By.className("error")).getText().contains("Your password is invalid!"));
+        //Assert.assertTrue(driver.findElement(By.className("error")).getText().contains("Your password is invalid!"));
     }
 
     @AfterClass

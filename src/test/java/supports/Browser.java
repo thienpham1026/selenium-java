@@ -1,21 +1,23 @@
-package theInternet;
+package supports;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class BrowserUtils {
+public class Browser {
+
     private static WebDriver driver;
-    private static Actions mouse;
+    private static Actions actions;
     private static WebDriverWait wait;
 
-    public static void launch(String name) {
+    public static void openBrowser(String name) {
         // Default to Chrome if name is null or empty
         if (name == null || name.trim().isEmpty()) {
             name = "chrome";
@@ -25,7 +27,7 @@ public class BrowserUtils {
             case "chrome":
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--headless=new");
-                
+
                 driver = new ChromeDriver(chromeOptions);
                 break;
 
@@ -37,31 +39,33 @@ public class BrowserUtils {
                 driver = new EdgeDriver();
                 break;
 
+            case "safari":
+                driver = new SafariDriver();
+                break;
+
             default:
-                throw new IllegalArgumentException("Unsupported browser: " + name);
+                throw new IllegalArgumentException("Un Support Browser: " + name.toLowerCase());
         }
 
-        // Initialize Actions and WebDriverWait
-        mouse = new Actions(getDriver());
-        wait = new WebDriverWait(getDriver(), Duration.ofSeconds(30));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        actions = new Actions(driver);
     }
 
     public static WebDriver getDriver() {
         return driver;
     }
 
-    public static Actions getMouse() {
-        return mouse;
+    public static void visit(String url) {
+        driver.get(url);
     }
 
-    public static WebDriverWait getWait() {
-        return wait;
+    public static String getCurrentUrl() {
+        return driver.getCurrentUrl();
     }
 
     public static void quit() {
         if (driver != null) {
             driver.quit();
-            driver = null;
         }
     }
 }

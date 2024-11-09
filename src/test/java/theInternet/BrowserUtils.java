@@ -15,14 +15,13 @@ import java.util.function.Supplier;
 
 public class BrowserUtils {
     private static WebDriver driver;
-    private static Actions mouse;
+    private static Actions actions;
     private static WebDriverWait wait;
 
     // Map to store browser launch functions
     private static final Map<String, Supplier<WebDriver>> browserMap = new HashMap<>();
 
     static {
-        // Initialize the browser map without WebDriverManager
         browserMap.put("chrome", () -> {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("--headless=new");
@@ -37,17 +36,14 @@ public class BrowserUtils {
         // Set default browser to "chrome" if name is null or empty
         name = (name == null || name.trim().isEmpty()) ? "chrome" : name.toLowerCase();
 
-        // Fetch the appropriate browser from the map, or throw an exception if not found
         Supplier<WebDriver> browserSupplier = browserMap.get(name);
         if (browserSupplier == null) {
             throw new IllegalArgumentException("Unsupported browser: " + name);
         }
 
-        // Launch the browser
         driver = browserSupplier.get();
 
-        // Initialize Actions and WebDriverWait for the driver
-        mouse = new Actions(driver);
+        actions = new Actions(driver);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
@@ -56,7 +52,7 @@ public class BrowserUtils {
     }
 
     public static Actions getMouse() {
-        return mouse;
+        return actions;
     }
 
     public static WebDriverWait getWait() {

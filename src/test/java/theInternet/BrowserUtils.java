@@ -9,41 +9,46 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class BrowserUtils {
     private static WebDriver driver;
     private static Actions mouse;
     private static WebDriverWait wait;
 
+    // Map to store browser launch functions
+    private static final Map<String, Supplier<WebDriver>> browserMap = new HashMap<>();
+
+    static {
+        // Initialize the browser map without WebDriverManager
+        browserMap.put("chrome", () -> {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("--headless=new");
+            return new ChromeDriver(chromeOptions);
+        });
+
+        browserMap.put("firefox", FirefoxDriver::new);
+        browserMap.put("edge", EdgeDriver::new);
+    }
+
     public static void launch(String name) {
-        // Default to Chrome if name is null or empty
-        if (name == null || name.trim().isEmpty()) {
-            name = "chrome";
+        // Set default browser to "chrome" if name is null or empty
+        name = (name == null || name.trim().isEmpty()) ? "chrome" : name.toLowerCase();
+
+        // Fetch the appropriate browser from the map, or throw an exception if not found
+        Supplier<WebDriver> browserSupplier = browserMap.get(name);
+        if (browserSupplier == null) {
+            throw new IllegalArgumentException("Unsupported browser: " + name);
         }
 
-        switch (name.toLowerCase().trim()) {
-            case "chrome":
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--headless=new");
-                
-                driver = new ChromeDriver(chromeOptions);
-                break;
+        // Launch the browser
+        driver = browserSupplier.get();
 
-            case "firefox":
-                driver = new FirefoxDriver();
-                break;
-
-            case "edge":
-                driver = new EdgeDriver();
-                break;
-
-            default:
-                throw new IllegalArgumentException("Unsupported browser: " + name);
-        }
-
-        // Initialize Actions and WebDriverWait
-        mouse = new Actions(getDriver());
-        wait = new WebDriverWait(getDriver(), Duration.ofSeconds(30));
+        // Initialize Actions and WebDriverWait for the driver
+        mouse = new Actions(driver);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public static WebDriver getDriver() {
@@ -61,7 +66,6 @@ public class BrowserUtils {
     public static void quit() {
         if (driver != null) {
             driver.quit();
-            driver = null;
         }
     }
 }

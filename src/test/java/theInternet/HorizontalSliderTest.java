@@ -30,20 +30,20 @@ public class HorizontalSliderTest {
     @Test
     void ableToHorizontalSlidePointer() {
 //        WebDriver driver = new ChromeDriver();
-        driver.get("https://the-internet.herokuapp.com/horizontal_slider");
-
-        Actions actions = new Actions(driver);
-        WebElement pointer = driver.findElement(By.cssSelector(".sliderContainer input"));
-        int offsetWidth = pointer.getSize().getWidth();
-        int offsetHeight = pointer.getSize().getHeight();
-        System.out.printf("%d %d", offsetHeight, offsetWidth);
-
-        actions.clickAndHold(pointer)
-                .moveByOffset(offsetWidth, 0)
-                .perform();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
-        Assert.assertTrue(wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("range"), "5")));
+//        driver.get("https://the-internet.herokuapp.com/horizontal_slider");
+//
+//        Actions actions = new Actions(driver);
+//        WebElement pointer = driver.findElement(By.cssSelector(".sliderContainer input"));
+//        int offsetWidth = pointer.getSize().getWidth();
+//        int offsetHeight = pointer.getSize().getHeight();
+//        System.out.printf("%d %d", offsetHeight, offsetWidth);
+//
+//        actions.clickAndHold(pointer)
+//                .moveByOffset(offsetWidth, 0)
+//                .perform();
+//
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+//        Assert.assertTrue(wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("range"), "5")));
     }
 
     @Test

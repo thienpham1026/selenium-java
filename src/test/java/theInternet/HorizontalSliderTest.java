@@ -27,47 +27,23 @@ public class HorizontalSliderTest {
         driver = Browser.getDriver();
     }
 
-    // @Test
-    // void ableToHorizontalSlidePointer() {
-    //    //WebDriver driver = new ChromeDriver();
-    //    driver.get("https://the-internet.herokuapp.com/horizontal_slider");
-
-    //    Actions actions = new Actions(driver);
-    //    WebElement pointer = driver.findElement(By.cssSelector(".sliderContainer input"));
-    //    int offsetWidth = pointer.getSize().getWidth();
-    //    //int offsetHeight = pointer.getSize().getHeight();
-    //    //System.out.printf("%d %d", offsetHeight, offsetWidth);
-
-    //    actions.clickAndHold(pointer)
-    //            .moveByOffset(offsetWidth, 0)
-    //            .perform();
-
-    //    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
-    //    Assert.assertTrue(wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("range"), "5")));
-    // }
-
     @Test
     void ableToHorizontalSlidePointer() {
-        driver.get("https://the-internet.herokuapp.com/horizontal_slider");
+       driver.get("https://the-internet.herokuapp.com/horizontal_slider");
 
-        Actions actions = new Actions(driver);
-        WebElement pointer = driver.findElement(By.cssSelector(".sliderContainer input"));
+       Actions actions = new Actions(driver);
+       WebElement pointer = driver.findElement(By.cssSelector(".sliderContainer input"));
+       int offsetWidth = pointer.getSize().getWidth();
+       int offsetHeight = pointer.getSize().getHeight();
+       System.out.printf("%d %d", offsetHeight, offsetWidth);
 
-        int offsetWidth = pointer.getSize().getWidth();
-
-        // Use Actions to drag the slider precisely
-        actions.clickAndHold(pointer)
-               .moveByOffset(offsetWidth, 0) // You may need to adjust this offset
+       actions.clickAndHold(pointer)
+               .moveByOffset(offsetWidth, 0)
                .release()
                .perform();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        // Verify if the slider value reaches "5"
-        WebElement rangeElement = driver.findElement(By.id("range"));
-        boolean isRangeCorrect = wait.until(ExpectedConditions.textToBePresentInElement(rangeElement, "5"));
-
-        Assert.assertTrue(isRangeCorrect);
+       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
+       Assert.assertTrue(wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("range"), "5")));
     }
 
     @Test

@@ -25,6 +25,8 @@ public class CheckboxesTest {
         if (!checkbox1.isSelected()) {
             checkbox1.click();
         }
+
+        Assert.assertTrue(checkbox1.isSelected());
     }
 
     @Test

@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,12 +21,12 @@ public class DatePickerTest {
 
     @BeforeClass
     void setup() {
-        BrowserUtils.launch("chrome");
+        Browser.openBrowser("chrome");
     }
 
     @Test
     void selectADate() {
-        WebDriver driver = BrowserUtils.getDriver();
+        WebDriver driver = Browser.getDriver();
         driver.manage().window().maximize();
         driver.get("https://www.vietnamairlines.com/vn/en/home");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -76,7 +77,7 @@ public class DatePickerTest {
 
     @AfterClass
     void tearDown() {
-        BrowserUtils.quit();
+        Browser.quit();
     }
 
     public static void main(String[] args) {

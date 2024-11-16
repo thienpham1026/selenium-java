@@ -7,14 +7,15 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 public class DragDropTest {
     WebDriver driver;
 
     @BeforeClass
     void setup() {
-        BrowserUtils.launch("chrome");
-        driver = BrowserUtils.getDriver();
+        Browser.openBrowser("chrome");
+        driver = Browser.getDriver();
     }
 
     @Test
@@ -33,6 +34,6 @@ public class DragDropTest {
 
     @AfterClass
     void tearDown() {
-        BrowserUtils.quit();
+        Browser.quit();
     }
 }

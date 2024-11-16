@@ -21,7 +21,7 @@ public class WebTableTest {
     @BeforeClass
     void setUp() {
         Browser.openBrowser("chrome");
-        driver = BrowserUtils.getDriver();
+        driver = Browser.getDriver();
         driver.get("https://the-internet.herokuapp.com/tables");
 
         table1Person = new ArrayList<>();

@@ -8,6 +8,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 public class HoverTest {
 
@@ -22,12 +23,12 @@ public class HoverTest {
 
     @BeforeClass
     void setup() {
-        BrowserUtils.launch("chrome");
+        Browser.openBrowser("chrome");
     }
 
     @Test(dataProvider = "testData")
     void ableToHoverImage(int imageIndex, String expectedImageName) {
-        WebDriver driver = BrowserUtils.getDriver();
+        WebDriver driver = Browser.getDriver();
         driver.get("https://the-internet.herokuapp.com/hovers");
 
         Actions actions = new Actions(driver);
@@ -45,6 +46,6 @@ public class HoverTest {
 
     @AfterClass
     void tearDown() {
-        BrowserUtils.quit();
+        Browser.quit();
     }
 }

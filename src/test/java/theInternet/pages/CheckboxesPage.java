@@ -16,19 +16,15 @@ public class CheckboxesPage {
         driver.get("https://the-internet.herokuapp.com/checkboxes");
     }
 
-    public void check() {
-        WebElement checkbox1 = driver.findElement(By.cssSelector("#checkboxes input:nth-child(1)"));
-
-        if (!checkbox1.isSelected()) {
-            checkbox1.click();
-        }
+    public void check(String checkbox) {
+        Browser.check(By.cssSelector(checkbox));
     }
 
-    public void unCheck() {
-
+    public void unCheck(String checkbox) {
+        Browser.uncheck(By.cssSelector(checkbox));
     }
 
-    public boolean isCheck() {
-        return false;
+    public boolean isCheck(String checkbox) {
+        return driver.findElement(By.cssSelector(checkbox)).isSelected();
     }
 }

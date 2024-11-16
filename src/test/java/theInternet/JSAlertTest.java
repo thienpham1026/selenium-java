@@ -6,15 +6,16 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 public class JSAlertTest {
     WebDriver driver;
 
     @BeforeClass
     void setUp() {
-        BrowserUtils.launch("chrome");
-        driver = BrowserUtils.getDriver();
-        driver.get("https://the-internet.herokuapp.com/javascript_alerts");
+        Browser.openBrowser("chrome");
+        driver = Browser.getDriver();
+        Browser.visit("https://the-internet.herokuapp.com/javascript_alerts");
     }
 
     @Test
@@ -52,6 +53,6 @@ public class JSAlertTest {
 
     @AfterClass
     void tearDown() {
-        BrowserUtils.quit();
+        Browser.quit();
     }
 }

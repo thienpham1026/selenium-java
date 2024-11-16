@@ -6,17 +6,18 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 public class NestedFrameTest {
 
     @BeforeClass
     void setUp() {
-        BrowserUtils.launch("chrome");
+        Browser.openBrowser("chrome");
     }
 
     @Test
     void verifyFrameContent() {
-        WebDriver driver = BrowserUtils.getDriver();
+        WebDriver driver = Browser.getDriver();
         driver.get("https://the-internet.herokuapp.com/nested_frames");
 
         driver.switchTo().frame("frame-top");
@@ -38,6 +39,6 @@ public class NestedFrameTest {
 
     @AfterClass
     void tearDown() {
-        BrowserUtils.quit();
+        Browser.quit();
     }
 }

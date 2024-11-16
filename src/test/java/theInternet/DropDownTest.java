@@ -29,7 +29,7 @@ public class DropDownTest {
 
     @Test
     void ableSelectMultipleOptions() {
-        WebDriver driver = BrowserUtils.getDriver();
+        WebDriver driver = Browser.getDriver();
         driver.get("https://output.jsbin.com/osebed/2");
 
         Select select = new Select(driver.findElement(By.id("fruits")));

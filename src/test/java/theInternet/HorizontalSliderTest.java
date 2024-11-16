@@ -100,6 +100,6 @@ public class HorizontalSliderTest {
 
     @AfterClass
     void tearDown() {
-        BrowserUtils.quit();
+        Browser.quit();
     }
 }

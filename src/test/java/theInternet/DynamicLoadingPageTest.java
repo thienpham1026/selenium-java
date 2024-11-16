@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 import java.time.Duration;
 
@@ -15,12 +16,12 @@ public class DynamicLoadingPageTest {
 
     @BeforeClass
     void setup() {
-        BrowserUtils.launch("chrome");
+        Browser.openBrowser("chrome");
     }
 
     @Test
     void handleWaitLoadingSuccess() {
-        WebDriver driver = BrowserUtils.getDriver();
+        WebDriver driver = Browser.getDriver();
         driver.get("https://the-internet.herokuapp.com/dynamic_loading/1");
 
         driver.findElement(By.xpath("//button[.='Start']")).click();
@@ -33,6 +34,6 @@ public class DynamicLoadingPageTest {
 
     @AfterClass
     void tearDown() {
-        BrowserUtils.quit();
+        Browser.quit();
     }
 }

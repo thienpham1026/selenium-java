@@ -1,6 +1,8 @@
 package supports;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -10,6 +12,7 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class Browser {
 
@@ -61,6 +64,30 @@ public class Browser {
 
     public static String getCurrentUrl() {
         return driver.getCurrentUrl();
+    }
+
+    public static void check(By locator) {
+        if (!isChecked(locator)) {
+            driver.findElement(locator).click();
+        }
+    }
+
+    public static void uncheck(By locator) {
+        if (isChecked(locator)) {
+            driver.findElement(locator).click();
+        }
+    }
+
+    public static boolean isChecked(By locator) {
+        return driver.findElement(locator).isSelected();
+    }
+
+    public static void click(By locator) {
+        driver.findElement(locator).click();
+    }
+
+    public static List<WebElement> getElements(By locator) {
+        return driver.findElements(locator);
     }
 
     public static void quit() {

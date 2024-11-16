@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -19,7 +20,7 @@ public class WebTableTest {
 
     @BeforeClass
     void setUp() {
-        BrowserUtils.launch("chrome");
+        Browser.openBrowser("chrome");
         driver = BrowserUtils.getDriver();
         driver.get("https://the-internet.herokuapp.com/tables");
 
@@ -122,6 +123,6 @@ public class WebTableTest {
 
     @AfterClass
     void tearDown() {
-        BrowserUtils.quit();
+        Browser.quit();
     }
 }

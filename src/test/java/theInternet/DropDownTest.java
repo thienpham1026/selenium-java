@@ -7,23 +7,24 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import supports.Browser;
+import theInternet.pages.DropDownPage;
 
 public class DropDownTest {
 
     @BeforeClass
     void setup() {
-        BrowserUtils.launch("chrome");
+        Browser.openBrowser("chrome");
     }
 
     @Test
     void ableSelectOption() {
-        WebDriver driver = BrowserUtils.getDriver();
-        driver.get("https://the-internet.herokuapp.com/dropdown");
+        DropDownPage dropDownPage = new DropDownPage();
+        dropDownPage.open();
 
-        Select dropdown = new Select(driver.findElement(By.xpath("//select[@id='dropdown']")));
-        dropdown.selectByVisibleText("Option 1");
+        dropDownPage.selectOption("Option 1");
 
-        Assert.assertTrue(driver.findElement(By.xpath("//*[@id='dropdown']/option[@value='1']")).isSelected());
+        Assert.assertTrue(dropDownPage.isSelected("Option 1"));
     }
 
     @Test
@@ -55,6 +56,6 @@ public class DropDownTest {
 
     @AfterClass
     void tearDown() {
-        BrowserUtils.quit();
+        Browser.quit();
     }
 }

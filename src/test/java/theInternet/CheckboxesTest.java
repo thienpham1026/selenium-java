@@ -7,15 +7,14 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 public class CheckboxesTest {
     WebDriver driver;
 
     @BeforeClass
     void setup() {
-        BrowserUtils.launch("chrome");
-        driver = BrowserUtils.getDriver();
-        driver.get("https://the-internet.herokuapp.com/checkboxes");
+        Browser.openBrowser("chrome");
     }
 
     @Test
@@ -42,6 +41,6 @@ public class CheckboxesTest {
 
     @AfterClass
     void tearDown() {
-        BrowserUtils.quit();
+        Browser.quit();
     }
 }

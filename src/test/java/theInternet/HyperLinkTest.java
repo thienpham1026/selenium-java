@@ -1,49 +1,43 @@
 package theInternet;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import supports.Browser;
+import theInternet.pages.HyperLinkPage;
 
 public class HyperLinkTest {
 
     @BeforeClass
     void setup() {
-        BrowserUtils.launch("chrome");
+        Browser.openBrowser("chrome");
     }
 
     @Test
     void verifyNavigateHyperLink() {
-        WebDriver driver = BrowserUtils.getDriver();
-        driver.get("https://the-internet.herokuapp.com/status_codes");
+        HyperLinkPage hyperLinkPage = new HyperLinkPage();
+        hyperLinkPage.open();
 
-        String href = driver.findElement(By.linkText("200")).getAttribute("href");
+        hyperLinkPage.clickHyperLink("200");
+        Assert.assertTrue(hyperLinkPage.isPageUrlContain("200"));
+        hyperLinkPage.clickHyperLink("here");
 
-        driver.findElement(By.linkText("200")).click();
-        Assert.assertEquals(driver.getCurrentUrl(), href);
-        driver.findElement(By.linkText("here")).click();
+        hyperLinkPage.clickHyperLink("301");
+        Assert.assertTrue(hyperLinkPage.isPageUrlContain("301"));
+        hyperLinkPage.clickHyperLink("here");
 
-        href = driver.findElement(By.linkText("301")).getAttribute("href");
+        hyperLinkPage.clickHyperLink("404");
+        Assert.assertTrue(hyperLinkPage.isPageUrlContain("404"));
+        hyperLinkPage.clickHyperLink("here");
 
-        driver.findElement(By.linkText("301")).click();
-        Assert.assertEquals(driver.getCurrentUrl(), href);
-        driver.navigate().back();
-
-        href = driver.findElement(By.linkText("404")).getAttribute("href");
-        driver.findElement(By.linkText("404")).click();
-        Assert.assertEquals(driver.getCurrentUrl(), href);
-        driver.navigate().back();
-
-        href = driver.findElement(By.linkText("500")).getAttribute("href");
-        driver.findElement(By.linkText("500")).click();
-        Assert.assertEquals(driver.getCurrentUrl(), href);
-        driver.navigate().back();
+        hyperLinkPage.clickHyperLink("500");
+        Assert.assertTrue(hyperLinkPage.isPageUrlContain("500"));
+        hyperLinkPage.clickHyperLink("here");
     }
 
     @AfterClass
     void tearDown() {
-        BrowserUtils.quit();
+        Browser.quit();
     }
 }

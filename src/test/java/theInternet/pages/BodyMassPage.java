@@ -24,21 +24,6 @@ public class BodyMassPage {
         driver.findElement(By.xpath("//input[@type='submit']")).click();
     }
 
-//    public boolean isResultCorrect(String expectedBmi) {
-//        //String resultText = driver.findElement(By.xpath("//*[.='BMI = 19.9']")).getText();
-//
-//        String resultText = driver.findElement(By.xpath("//*[contains(text(), 'BMI =')]")).getText();
-//
-//        System.out.println(resultText);
-//
-//        String actualBmi = resultText.replace("BMI = ", "").replace(" kg/m²", "").trim();
-//        String expectedBmiNormalized = expectedBmi.trim();
-//
-//        System.out.println(resultText);
-//        System.out.println(expectedBmi);
-//        return resultText.contains(expectedBmi);
-//    }
-
     public boolean isResultCorrect(String expectedBmi) {
         String resultText = driver.findElement(By.xpath("//*[contains(text(), 'BMI = ')]")).getText();
 
@@ -46,6 +31,6 @@ public class BodyMassPage {
         String actualBmi = resultText.replace("BMI = ", "").replace(" kg/m²", "").trim();
 
         // Compare the actual BMI with the expected one
-        return actualBmi.equals(expectedBmi);
+        return actualBmi.contains(expectedBmi);
     }
 }

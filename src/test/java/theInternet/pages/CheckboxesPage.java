@@ -2,7 +2,6 @@ package theInternet.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import supports.Browser;
 
 public class CheckboxesPage {
@@ -24,7 +23,7 @@ public class CheckboxesPage {
         Browser.uncheck(By.cssSelector(checkbox));
     }
 
-    public boolean isCheck(String checkbox) {
+    public boolean isChecked(String checkbox) {
         return driver.findElement(By.cssSelector(checkbox)).isSelected();
     }
 }

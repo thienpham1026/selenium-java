@@ -1,8 +1,5 @@
 package theInternet;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -11,17 +8,17 @@ import supports.Browser;
 import theInternet.pages.DropDownPage;
 
 public class DropDownTest {
+    DropDownPage dropDownPage;
 
     @BeforeClass
     void setup() {
         Browser.openBrowser("chrome");
+        dropDownPage = new DropDownPage();
     }
 
     @Test
     void ableSelectOption() {
-        DropDownPage dropDownPage = new DropDownPage();
-        dropDownPage.open();
-
+        dropDownPage.open("https://the-internet.herokuapp.com/dropdown");
         dropDownPage.selectOption("Option 1");
 
         Assert.assertTrue(dropDownPage.isSelected("Option 1"));
@@ -29,29 +26,26 @@ public class DropDownTest {
 
     @Test
     void ableSelectMultipleOptions() {
-        WebDriver driver = Browser.getDriver();
-        driver.get("https://output.jsbin.com/osebed/2");
+        dropDownPage.open("https://output.jsbin.com/osebed/2");
+        boolean isMulti = dropDownPage.selectedMultiOption();
+        Assert.assertTrue(isMulti);
 
-        Select select = new Select(driver.findElement(By.id("fruits")));
+        dropDownPage.selectMultiOption("Banana", "Apple");
 
-        Assert.assertTrue(select.isMultiple());
+        Assert.assertTrue(dropDownPage.isMultiSelected("banana"));
+        Assert.assertTrue(dropDownPage.isMultiSelected("apple"));
 
-        select.selectByVisibleText("Banana");
-        select.selectByVisibleText("Apple");
+        dropDownPage.deSelectOption("Banana");
 
-        Assert.assertTrue(driver.findElement(By.xpath("//*[@id='fruits']/option[@value='banana']")).isSelected());
-        Assert.assertTrue(driver.findElement(By.xpath("//*[@id='fruits']/option[@value='apple']")).isSelected());
+        Assert.assertFalse(dropDownPage.isMultiSelected("banana"));
+        Assert.assertTrue(dropDownPage.isMultiSelected("apple"));
 
-        select.deselectByVisibleText("Banana");
+        dropDownPage.deSelectAll();
 
-        Assert.assertFalse(driver.findElement(By.xpath("//*[@id='fruits']/option[@value='banana']")).isSelected());
-        Assert.assertTrue(driver.findElement(By.xpath("//*[@id='fruits']/option[@value='apple']")).isSelected());
-
-        select.deselectAll();
-        Assert.assertFalse(driver.findElement(By.xpath("//*[@id='fruits']/option[@value='banana']")).isSelected());
-        Assert.assertFalse(driver.findElement(By.xpath("//*[@id='fruits']/option[@value='apple']")).isSelected());
-        Assert.assertFalse(driver.findElement(By.xpath("//*[@id='fruits']/option[@value='orange']")).isSelected());
-        Assert.assertFalse(driver.findElement(By.xpath("//*[@id='fruits']/option[@value='grape']")).isSelected());
+        Assert.assertFalse(dropDownPage.isMultiSelected("banana"));
+        Assert.assertFalse(dropDownPage.isMultiSelected("apple"));
+        Assert.assertFalse(dropDownPage.isMultiSelected("orange"));
+        Assert.assertFalse(dropDownPage.isMultiSelected("grape"));
     }
 
     @AfterClass

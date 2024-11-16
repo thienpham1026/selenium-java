@@ -20,16 +20,16 @@ public class CheckboxesTest {
     @Test
     void ableSelectACheckboxes() {
         checkboxesPage.check("#checkboxes input:nth-child(1)");
-        Assert.assertTrue(checkboxesPage.isCheck("#checkboxes input:nth-child(1)"));
+        Assert.assertTrue(checkboxesPage.isChecked("#checkboxes input:nth-child(1)"));
 
         checkboxesPage.check("#checkboxes input:nth-child(3)");
-        Assert.assertTrue(checkboxesPage.isCheck("#checkboxes input:nth-child(3)"));
+        Assert.assertTrue(checkboxesPage.isChecked("#checkboxes input:nth-child(3)"));
     }
 
     @Test
     void ableUnSelectACheckboxes() {
         checkboxesPage.unCheck("#checkboxes input:nth-child(3)");
-        Assert.assertFalse(checkboxesPage.isCheck("#checkboxes input:nth-child(3)"));
+        Assert.assertFalse(checkboxesPage.isChecked("#checkboxes input:nth-child(3)"));
     }
 
     @AfterClass

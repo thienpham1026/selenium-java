@@ -25,7 +25,8 @@ public class BodyMassPage {
     }
 
     public boolean isResultCorrect(String expectedBmi) {
-        String resultText = driver.findElement(By.xpath("//*[contains(text(), 'BMI = ')]")).getText();
+        // String resultText = driver.findElement(By.xpath("//*[contains(text(), 'BMI = ')]")).getText();
+        String resultText = driver.findElement(By.cssSelector("b")).getText();
 
         // Normalize the result text by removing extra parts
         String actualBmi = resultText.replace("BMI = ", "").replace(" kg/m²", "").trim();

@@ -8,6 +8,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import supports.Browser;
+import theInternet.pages.WebTablePage;
 
 import java.util.ArrayList;
 import java.util.Comparator;

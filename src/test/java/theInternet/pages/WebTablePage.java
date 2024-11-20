@@ -31,7 +31,7 @@ public class WebTablePage {
                 .get().getFullName();
     }
 
-    public List<String> getMinPersonOfTable1() {
+    public List<String> getMinDuePersonOfTable1() {
         Person minDuePerson = table1Person
                 .stream()
                 .min(Comparator.comparing(Person::getDue))

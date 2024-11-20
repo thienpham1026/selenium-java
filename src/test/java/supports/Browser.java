@@ -90,6 +90,10 @@ public class Browser {
         return driver.findElements(locator);
     }
 
+    public static String getText(By locator){
+        return driver.findElement(locator).getText();
+    }
+
     public static void quit() {
         if (driver != null) {
             driver.quit();

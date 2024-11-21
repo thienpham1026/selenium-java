@@ -2,6 +2,7 @@ package theInternet.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import supports.Browser;
 
 public class BodyMassPage {
@@ -16,22 +17,27 @@ public class BodyMassPage {
     }
 
     public void fillCalculator(String age, String height, String weight) {
-        driver.findElement(By.xpath("//input[@id='cage']")).sendKeys(age);
+        WebElement ageField = driver.findElement(By.xpath("//input[@id='cage']"));
+        ageField.clear();
+        ageField.sendKeys(age);
+
         driver.findElement(By.xpath("//label[@for='csex2']/span")).click();
-        driver.findElement(By.xpath("//input[@id='cheightmeter']")).sendKeys(height);
-        driver.findElement(By.xpath("//input[@id='ckg']")).sendKeys(weight);
+
+        WebElement heightField = driver.findElement(By.xpath("//input[@id='cheightmeter']"));
+        heightField.clear();
+        heightField.sendKeys(height);
+
+        WebElement weightField = driver.findElement(By.xpath("//input[@id='ckg']"));
+        weightField.clear();
+        weightField.sendKeys(weight);
 
         driver.findElement(By.xpath("//input[@type='submit']")).click();
     }
 
     public boolean isResultCorrect(String expectedBmi) {
-        // String resultText = driver.findElement(By.xpath("//*[contains(text(), 'BMI = ')]")).getText();
-        String resultText = driver.findElement(By.cssSelector("b")).getText();
+        String resultText = driver.findElement(By.xpath("//div[@class='bigtext']")).getText();
+        String actualBmi = resultText.replaceAll("[^\\d.]", "").trim();
 
-        // Normalize the result text by removing extra parts
-        String actualBmi = resultText.replace("BMI = ", "").replace(" kg/m²", "").trim();
-
-        // Compare the actual BMI with the expected one
         return actualBmi.contains(expectedBmi);
     }
 }

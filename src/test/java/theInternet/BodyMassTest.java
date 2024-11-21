@@ -8,21 +8,20 @@ import supports.Browser;
 import theInternet.pages.BodyMassPage;
 
 public class BodyMassTest {
-
     @BeforeClass
     void setup(){
         Browser.openBrowser("chrome");
     }
 
-//     @Test
-//     void calculatorBMI() {
-//         BodyMassPage bodyMassPage = new BodyMassPage();
-//         bodyMassPage.open();
+     @Test
+     void calculatorBMI() {
+         BodyMassPage bodyMassPage = new BodyMassPage();
+         bodyMassPage.open();
 
-//         bodyMassPage.fillCalculator("30", "160", "51");
+         bodyMassPage.fillCalculator("30", "160", "51");
 
-// //        Assert.assertTrue(bodyMassPage.isResultCorrect("19.9"));
-//     }
+         Assert.assertTrue(bodyMassPage.isResultCorrect("19.9"));
+     }
 
     @AfterClass
     void tearDown(){

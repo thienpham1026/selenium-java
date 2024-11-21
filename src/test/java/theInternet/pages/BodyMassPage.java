@@ -3,10 +3,13 @@ package theInternet.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import supports.Browser;
 
 public class BodyMassPage {
     WebDriver driver;
+    WebDriverWait wait;
 
     public BodyMassPage() {
         this.driver = Browser.getDriver();
@@ -33,10 +36,14 @@ public class BodyMassPage {
         weightField.sendKeys(weight);
 
         driver.findElement(By.xpath("//input[@type='submit']")).click();
+
+        wait = Browser.getWait();
     }
 
     public boolean isResultCorrect(String expectedBmi) {
-        String resultText = driver.findElement(By.xpath("//div[@class='bigtext']")).getText();
+        wait = Browser.getWait();
+        String resultText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='bigtext']"))).getText();
+        //String resultText = driver.findElement(By.xpath("//div[@class='bigtext']")).getText();
         String actualBmi = resultText.replaceAll("[^\\d.]", "").trim();
 
         return actualBmi.contains(expectedBmi);

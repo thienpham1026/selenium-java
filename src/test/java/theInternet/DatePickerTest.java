@@ -29,7 +29,7 @@ public class DatePickerTest {
         WebDriver driver = Browser.getDriver();
         driver.manage().window().maximize();
         driver.get("https://www.vietnamairlines.com/vn/en/home");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cookie-agree"))).click();
 
@@ -72,7 +72,7 @@ public class DatePickerTest {
                 .findFirst()
                 .ifPresent(WebElement::click);
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(.,'Done')]"))).click();
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(.,'Done')]"))).click();
     }
 
     @AfterClass

@@ -14,11 +14,12 @@ public class BodyMassTest {
     }
 
      @Test
-     void calculatorBMI() {
+     void calculatorBMI() throws InterruptedException {
          BodyMassPage bodyMassPage = new BodyMassPage();
          bodyMassPage.open();
 
          bodyMassPage.fillCalculator("30", "160", "51");
+         Thread.sleep(1000);
 
          Assert.assertTrue(bodyMassPage.isResultCorrect("19.9"));
      }

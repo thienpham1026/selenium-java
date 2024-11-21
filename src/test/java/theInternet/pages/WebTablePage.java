@@ -1,7 +1,6 @@
 package theInternet.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import supports.Browser;
 import theInternet.Person;
@@ -11,13 +10,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class WebTablePage {
-    // WebDriver driver;
     List<Person> table1Person = new ArrayList<>();
     List<Person> table2Person = new ArrayList<>();
-
-    // public WebTablePage() {
-    //     this.driver = Browser.getDriver();
-    // }
 
     public void open() {
         Browser.visit("https://the-internet.herokuapp.com/tables");

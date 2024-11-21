@@ -58,6 +58,10 @@ public class Browser {
         return driver;
     }
 
+    public static WebDriverWait getWait() {
+        return wait;
+    }
+
     public static void visit(String url) {
         driver.get(url);
     }
@@ -90,7 +94,7 @@ public class Browser {
         return driver.findElements(locator);
     }
 
-    public static String getText(By locator){
+    public static String getText(By locator) {
         return driver.findElement(locator).getText();
     }
 

@@ -13,6 +13,7 @@ public class BodyMassPage {
 
     public BodyMassPage() {
         this.driver = Browser.getDriver();
+        this.wait = Browser.getWait();
     }
 
     public void open() {
@@ -36,16 +37,16 @@ public class BodyMassPage {
         weightField.sendKeys(weight);
 
         driver.findElement(By.xpath("//input[@type='submit']")).click();
-
-        wait = Browser.getWait();
     }
 
     public boolean isResultCorrect(String expectedBmi) {
-        wait = Browser.getWait();
-        String resultText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='bigtext']"))).getText();
-        //String resultText = driver.findElement(By.xpath("//div[@class='bigtext']")).getText();
-        String actualBmi = resultText.replaceAll("[^\\d.]", "").trim();
-
-        return actualBmi.contains(expectedBmi);
+        try {
+            String resultText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='bigtext']"))).getText();
+            String actualBmi = resultText.replaceAll("[^\\d.]", "").trim();
+            return actualBmi.contains(expectedBmi);
+        } catch (Exception e) {
+            System.err.println("Error while validating BMI result: " + e.getMessage());
+            return false;
+        }
     }
 }

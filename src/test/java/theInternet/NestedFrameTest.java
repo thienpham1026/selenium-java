@@ -24,11 +24,11 @@ public class NestedFrameTest {
         driver.switchTo().frame("frame-left");
         Assert.assertTrue(driver.findElement(By.tagName("body")).getText().contains("LEFT"));
 
-        driver.switchTo().parentFrame();//frame-top
+        driver.switchTo().parentFrame();
         driver.switchTo().frame("frame-middle");
         Assert.assertTrue(driver.findElement(By.id("content")).getText().contains("MIDDLE"));
 
-        driver.switchTo().parentFrame();//frame-top
+        driver.switchTo().parentFrame();
         driver.switchTo().frame("frame-right");
         Assert.assertTrue(driver.findElement(By.tagName("body")).getText().contains("RIGHT"));
 

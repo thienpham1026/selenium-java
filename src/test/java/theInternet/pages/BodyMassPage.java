@@ -21,6 +21,7 @@ public class BodyMassPage {
         ageField.clear();
         ageField.sendKeys(age);
 
+        // checkbox: Female
         driver.findElement(By.xpath("//label[@for='csex2']/span")).click();
 
         WebElement heightField = driver.findElement(By.xpath("//input[@id='cheightmeter']"));

@@ -3,17 +3,13 @@ package theInternet.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import supports.Browser;
 
 public class BodyMassPage {
     WebDriver driver;
-    WebDriverWait wait;
 
     public BodyMassPage() {
         this.driver = Browser.getDriver();
-        this.wait = Browser.getWait();
     }
 
     public void open() {
@@ -25,7 +21,6 @@ public class BodyMassPage {
         ageField.clear();
         ageField.sendKeys(age);
 
-        // checkbox: Female
         driver.findElement(By.xpath("//label[@for='csex2']/span")).click();
 
         WebElement heightField = driver.findElement(By.xpath("//input[@id='cheightmeter']"));
@@ -40,13 +35,9 @@ public class BodyMassPage {
     }
 
     public boolean isResultCorrect(String expectedBmi) {
-        try {
-            String resultText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='bigtext']"))).getText();
-            String actualBmi = resultText.replaceAll("[^\\d.]", "").trim();
-            return actualBmi.contains(expectedBmi);
-        } catch (Exception e) {
-            System.err.println("Error while validating BMI result: " + e.getMessage());
-            return false;
-        }
+        String resultText = driver.findElement(By.xpath("//div[@class='bigtext']")).getText();
+        String actualBmi = resultText.replaceAll("[^\\d.]", "").trim();
+
+        return actualBmi.contains(expectedBmi);
     }
 }

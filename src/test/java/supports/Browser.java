@@ -62,6 +62,10 @@ public class Browser {
         return wait;
     }
 
+    public static Actions getActions() {
+        return actions;
+    }
+
     public static void visit(String url) {
         driver.get(url);
     }

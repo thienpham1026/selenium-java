@@ -11,6 +11,12 @@ public class DropDownPage {
 
     public void open(String url) {
         Browser.visit(url);
+        getDropDown();
+    }
+
+    private void getDropDown() {
+        Browser.getElement(By.xpath("//select[@id='dropdown']"));
+        Browser.getElement(By.id("fruits"));
     }
 
     public void selectOption(String option) {

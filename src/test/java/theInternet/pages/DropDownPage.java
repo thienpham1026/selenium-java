@@ -19,8 +19,8 @@ public class DropDownPage {
     }
 
     public void selectOption(String option) {
-        dropdown = new Select(Browser.findElement(By.xpath("//select[@id='dropdown']")));
-        dropdown.selectByVisibleText(option);
+        select = new Select(Browser.findElement(By.xpath("//select[@id='dropdown']")));
+        select.selectByVisibleText(option);
     }
 
     public boolean isSelected(String option) {

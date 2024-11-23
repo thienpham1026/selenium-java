@@ -9,11 +9,6 @@ public class DropDownPage {
     //WebDriver driver;
     Select select;
 
-    public DropDownPage() {
-        //this.driver = Browser.getDriver();
-        //select = new Select(Browser.findElement(By.id("fruits")));
-    }
-
     public void open(String url) {
         Browser.visit(url);
     }
@@ -28,24 +23,24 @@ public class DropDownPage {
     }
 
     public boolean selectedMultiOption() {
-        select = new Select(driver.findElement(By.id("fruits")));
+        select = new Select(Browser.findElement(By.id("fruits")));
         return select.isMultiple();
     }
 
     public void selectMultiOption(String option1, String option2) {
-        select = new Select(driver.findElement(By.id("fruits")));
+        select = new Select(Browser.findElement(By.id("fruits")));
 
         select.selectByVisibleText(option1);
         select.selectByVisibleText(option2);
     }
 
     public void deSelectOption(String option) {
-        select = new Select(driver.findElement(By.id("fruits")));
+        select = new Select(Browser.findElement(By.id("fruits")));
         select.deselectByVisibleText(option);
     }
 
     public void deSelectAll() {
-        select = new Select(driver.findElement(By.id("fruits")));
+        select = new Select(Browser.findElement(By.id("fruits")));
         select.deselectAll();
     }
 

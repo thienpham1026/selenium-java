@@ -19,12 +19,13 @@ public class DropDownPage {
     }
 
     public void selectOption(String option) {
-        select = new Select(Browser.findElement(By.xpath("//select[@id='dropdown']")));
+        select = new Select(driver.findElement(By.xpath("//select[@id='dropdown']")));
         select.selectByVisibleText(option);
     }
 
+
     public boolean isSelected(String option) {
-        return Browser.findElement(By.xpath(String.format("//*[@id='dropdown']/option[.='%s']", option))).isSelected();
+        return driver.findElement(By.xpath(String.format("//*[@id='dropdown']/option[.='%s']", option))).isSelected();
     }
 
     public boolean selectedMultiOption() {
@@ -50,6 +51,6 @@ public class DropDownPage {
     }
 
     public boolean isMultiSelected(String option) {
-        return Browser.findElement(By.xpath(String.format("//*[@id='fruits']/option[@value='%s']", option))).isSelected();
+        return driver.findElement(By.xpath(String.format("//*[@id='fruits']/option[@value='%s']", option))).isSelected();
     }
 }

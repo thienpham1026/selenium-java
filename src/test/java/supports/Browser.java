@@ -98,9 +98,9 @@ public class Browser {
         return driver.findElements(locator);
     }
 
- //   public static WebElement getElement(By locator) {
-      // return driver.findElement(locator);
-  //  }
+    public static WebElement getElement(By locator) {
+        return driver.findElement(locator);
+    }
 
     public static String getText(By locator) {
         return driver.findElement(locator).getText();

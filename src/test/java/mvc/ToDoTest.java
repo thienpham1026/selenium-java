@@ -82,6 +82,6 @@ public class ToDoTest {
 
     @AfterClass
     void tearDown(){
-//        quit();
+       quit();
     }
 }

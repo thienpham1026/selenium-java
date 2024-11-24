@@ -1,6 +1,8 @@
 package supports;
 
 import org.openqa.selenium.By;
+import org.checkerframework.checker.units.qual.C;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,6 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.time.Duration;
 import java.util.List;
@@ -104,6 +107,31 @@ public class Browser {
 
     public static String getText(By locator) {
         return driver.findElement(locator).getText();
+    }
+
+    public static String getElementValue(By locator){
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator)).getAttribute("value");
+    }
+
+    public static void fill(By locator, String withText){
+        driver.findElement(locator).sendKeys(withText);
+    }
+
+    public static void hover(WebElement element){
+        actions
+                .moveToElement(element)
+                .perform();
+    }
+    
+    public static void doubleClick(WebElement element){
+        actions
+                .doubleClick(element)
+                .perform();
+    }
+    
+    public static void executeScript(WebElement element, String jsScript){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript(jsScript,element);
     }
 
     public static void quit() {

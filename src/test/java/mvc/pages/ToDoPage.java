@@ -26,23 +26,7 @@ public class ToDoPage {
         hover(getTask(taskName));
         getTask(taskName).findElement(By.tagName("button")).click();
     }
-//    /*
-//    <div class="input-container">
-//        <input class="new-todo" id="todo-input" type="text" data-testid="text-input" value="task vkfmfqsB1FaGXP01lepET53l">
-//        <label class="visually-hidden" for="todo-input">Edit Todo Input</label>
-//     </div>
-//     */
 
-    /*
-    <li class="" data-testid="todo-item">
-       <div class="view">
-           <div class="input-container">
-               <input class="new-todo" id="todo-input" type="text" data-testid="text-input" value="task">
-               <label class="visually-hidden" for="todo-input">Edit Todo Input</label>
-           </div>
-       </div>
-   </li>
-     */
     public void editTaskName(String taskName,String newName){
         WebElement task = getTask(taskName);
 
@@ -50,19 +34,7 @@ public class ToDoPage {
         WebElement editTaskNameTextBox = task.findElement(By.cssSelector("input.new-todo"));
         executeScript(editTaskNameTextBox,"arguments[0].value = ''");
         editTaskNameTextBox.sendKeys(newName,Keys.ENTER);
-
-
-//
-//
-//
-////        WebElement todoEditInput = browser.find(editTodoBtn, todoToEdit);
-//        browser.executeScript("arguments[0].value = ''",
-//                todoEditInput);
-
-//        browser.type(todoEditInput, newTodoName + Keys.ENTER);
     }
-
-
 
     public boolean isTaskExist(String taskName){
         List<WebElement> tasks = getElements(By.cssSelector(".todo-list li"));

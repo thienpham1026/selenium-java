@@ -10,7 +10,6 @@ import supports.Utils;
 
 import static supports.Browser.*;
 
-
 public class ToDoTest {
     ToDoPage toDoPage;
 

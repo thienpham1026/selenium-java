@@ -17,4 +17,12 @@ public class Utils {
 
         return result.toString();
     }
+
+    public static String calculateBmi(double weight, double height) {
+        double convertHeight = height / 100; // Convert height to meters
+        double bmi = weight / (convertHeight * convertHeight); // Calculate BMI
+
+        // Round BMI to 1 decimal place and return the formatted string
+        return String.format("BMI = %.1f kg/m2", bmi);
+    }
 }

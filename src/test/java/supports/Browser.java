@@ -1,10 +1,7 @@
 package supports;
 
-import org.openqa.selenium.By;
-import org.checkerframework.checker.units.qual.C;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -14,6 +11,8 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 
@@ -109,34 +108,46 @@ public class Browser {
         return driver.findElement(locator).getText();
     }
 
-    public static String getElementValue(By locator){
+    public static String getElementValue(By locator) {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator)).getAttribute("value");
     }
 
-    public static void fill(By locator, String withText){
+    public static void fill(By locator, String withText) {
         driver.findElement(locator).sendKeys(withText);
     }
 
-    public static void hover(WebElement element){
+    public static void hover(WebElement element) {
         actions
                 .moveToElement(element)
                 .perform();
     }
-    
-    public static void doubleClick(WebElement element){
+
+    public static void doubleClick(WebElement element) {
         actions
                 .doubleClick(element)
                 .perform();
     }
-    
-    public static void executeScript(WebElement element, String jsScript){
+
+    public static void executeScript(WebElement element, String jsScript) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript(jsScript,element);
+        js.executeScript(jsScript, element);
     }
 
     public static void quit() {
         if (driver != null) {
             driver.quit();
+        }
+    }
+
+    public static void captureScreenShot(String name) {
+        TakesScreenshot scrShot = ((TakesScreenshot) driver);
+        File srcFile = scrShot.getScreenshotAs(OutputType.FILE);
+        File destFile = new File(String.format("target/%s-%d.png",
+                name, System.currentTimeMillis()));
+        try {
+            FileUtils.copyFile(srcFile, destFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

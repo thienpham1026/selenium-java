@@ -3,7 +3,6 @@
         <packages>
             <package name="org.example" />
             <package name="theInternet" />
-            <package name="calculator" />
             <package name="mvc" />
         </packages>
     </test>

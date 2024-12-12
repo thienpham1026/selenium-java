@@ -1,43 +1,37 @@
 package theInternet.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import supports.Browser;
+import static supports.Browser.*;
 
 public class BodyMassPage {
-    WebDriver driver;
-
-    public BodyMassPage() {
-        this.driver = Browser.getDriver();
-    }
 
     public void open() {
-        Browser.visit("https://www.calculator.net/bmi-calculator.html");
+        visit("https://www.calculator.net/bmi-calculator.html");
     }
 
-    public void fillCalculator(String age, String height, String weight) {
-        WebElement ageField = driver.findElement(By.xpath("//input[@id='cage']"));
-        ageField.clear();
+    public void fillCalculator(String age, double height, double weight, String gender) {
+        getElement(By.cssSelector("input[value=Clear]")).click();
+
+        WebElement ageField = getElement(By.xpath("//input[@id='cage']"));
         ageField.sendKeys(age);
 
-        driver.findElement(By.xpath("//label[@for='csex2']/span")).click();
+        if (gender.equalsIgnoreCase("female")) {
+            getElement(By.xpath("//label[@for='csex2']/span")).click();
+        }
 
-        WebElement heightField = driver.findElement(By.xpath("//input[@id='cheightmeter']"));
-        heightField.clear();
-        heightField.sendKeys(height);
+        WebElement heightField = getElement(By.xpath("//input[@id='cheightmeter']"));
+        heightField.sendKeys(String.valueOf(height));
 
-        WebElement weightField = driver.findElement(By.xpath("//input[@id='ckg']"));
-        weightField.clear();
-        weightField.sendKeys(weight);
+        WebElement weightField = getElement(By.xpath("//input[@id='ckg']"));
+        weightField.sendKeys(String.valueOf(weight));
 
-        driver.findElement(By.xpath("//input[@type='submit']")).click();
+        getElement(By.xpath("//input[@type='submit']")).click();
     }
 
     public boolean isResultCorrect(String expectedBmi) {
-        String resultText = driver.findElement(By.xpath("//div[@class='bigtext']")).getText();
-        String actualBmi = resultText.replaceAll("[^\\d.]", "").trim();
+        String resultText = getText(By.cssSelector(".rightresult .bigtext b"));
 
-        return actualBmi.contains(expectedBmi);
+        return resultText.contains(expectedBmi);
     }
 }

@@ -24,7 +24,6 @@ public class BodyMassIndexTest {
         };
     }
 
-
     @Test(dataProvider = "bmiTestData")
     void verifyBMIValue(String age, double height, double weight, String gender) {
         BodyMassIndexPage bodyMassIndexPage = new BodyMassIndexPage();

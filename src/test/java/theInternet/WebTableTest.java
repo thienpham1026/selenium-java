@@ -4,17 +4,19 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import supports.Browser;
 import theInternet.pages.WebTablePage;
 
 import java.util.List;
+
+import static supports.Browser.openBrowser;
+import static supports.Browser.quit;
 
 public class WebTableTest {
     WebTablePage webTablePage;
 
     @BeforeClass
     void setUp() {
-        Browser.openBrowser("chrome");
+        openBrowser("chrome");
         webTablePage = new WebTablePage();
         webTablePage.open();
     }
@@ -36,6 +38,6 @@ public class WebTableTest {
 
     @AfterClass
     void tearDown() {
-        Browser.quit();
+        quit();
     }
 }

@@ -2,19 +2,20 @@ package theInternet.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import supports.Browser;
 import theInternet.Person;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+
+import static supports.Browser.*;
 
 public class WebTablePage {
     List<Person> table1Person = new ArrayList<>();
     List<Person> table2Person = new ArrayList<>();
 
     public void open() {
-        Browser.visit("https://the-internet.herokuapp.com/tables");
+        visit("https://the-internet.herokuapp.com/tables");
         getTables();
     }
 
@@ -39,14 +40,12 @@ public class WebTablePage {
     }
 
     private void getTables() {
-        Browser
-                .all(By.xpath("//table[@id='table1']/tbody/tr"))
+        all(By.xpath("//table[@id='table1']/tbody/tr"))
                 .forEach(row -> {
                     List<String> cells = row.findElements(By.tagName("td")).stream().map(WebElement::getText).toList();
                     table1Person.add(new Person(cells.get(1), cells.get(0), cells.get(3)));
                 });
-        Browser
-                .all(By.xpath("//table[@id='table2']/tbody/tr"))
+        all(By.xpath("//table[@id='table2']/tbody/tr"))
                 .forEach(row -> {
                     List<String> cells = row.findElements(By.tagName("td")).stream().map(WebElement::getText).toList();
                     table2Person.add(new Person(cells.get(1), cells.get(0), cells.get(3)));
@@ -54,12 +53,12 @@ public class WebTablePage {
     }
 
     public String getMaxDuePersonTable1() {
-        double[] dueValue = Browser.all(By.xpath("//table[@id='table1']/tbody/tr/td[4]"))
+        double[] dueValue = all(By.xpath("//table[@id='table1']/tbody/tr/td[4]"))
                 .stream()
                 .mapToDouble(webElement -> Double.parseDouble(webElement.getText().replace("$", "")))
                 .toArray();
 
-        double maxDueValue = Browser.all(By.xpath("//table[@id='table1']/tbody/tr/td[4]"))
+        double maxDueValue = all(By.xpath("//table[@id='table1']/tbody/tr/td[4]"))
                 .stream()
                 .mapToDouble(webElement -> Double.parseDouble(webElement.getText().replace("$", "")))
                 .max()
@@ -73,8 +72,8 @@ public class WebTablePage {
         }
         System.out.println(indexOfMaxDue);
         String cellLocator = "//table[@id='table1']/tbody/tr[%d]/td[%d]";
-        String firsName = Browser.getText(By.xpath(String.format(cellLocator, indexOfMaxDue, 2))); // 2 -> cot firstName
-        String lastName = Browser.getText(By.xpath(String.format(cellLocator, indexOfMaxDue, 1))); // 1 -> cot lastName
+        String firsName = getText(By.xpath(String.format(cellLocator, indexOfMaxDue, 2))); // 2 -> cot firstName
+        String lastName = getText(By.xpath(String.format(cellLocator, indexOfMaxDue, 1))); // 1 -> cot lastName
         return String.format("%s %s", firsName, lastName);
     }
 }

@@ -4,7 +4,9 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import supports.Browser;
+
+import static supports.Browser.*;
+
 import theInternet.pages.CheckboxesPage;
 
 public class CheckboxesTest {
@@ -12,17 +14,17 @@ public class CheckboxesTest {
 
     @BeforeClass
     void setup() {
-        Browser.openBrowser("chrome");
+        openBrowser("chrome");
         checkboxesPage = new CheckboxesPage();
         checkboxesPage.open();
     }
 
     @Test
     void ableSelectACheckboxes() {
-        checkboxesPage.check("#checkboxes input:nth-child(1)");
+        checkboxesPage.tick("#checkboxes input:nth-child(1)");
         Assert.assertTrue(checkboxesPage.isChecked("#checkboxes input:nth-child(1)"));
 
-        checkboxesPage.check("#checkboxes input:nth-child(3)");
+        checkboxesPage.tick("#checkboxes input:nth-child(3)");
         Assert.assertTrue(checkboxesPage.isChecked("#checkboxes input:nth-child(3)"));
     }
 
@@ -34,6 +36,6 @@ public class CheckboxesTest {
 
     @AfterClass
     void tearDown() {
-        Browser.quit();
+        quit();
     }
 }

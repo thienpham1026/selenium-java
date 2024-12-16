@@ -4,14 +4,16 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import supports.Browser;
 import theInternet.pages.HyperLinkPage;
+
+import static supports.Browser.openBrowser;
+import static supports.Browser.quit;
 
 public class HyperLinkTest {
 
     @BeforeClass
     void setup() {
-        Browser.openBrowser("chrome");
+        openBrowser("chrome");
     }
 
     @Test
@@ -38,6 +40,6 @@ public class HyperLinkTest {
 
     @AfterClass
     void tearDown() {
-        Browser.quit();
+        quit();
     }
 }

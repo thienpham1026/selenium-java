@@ -40,13 +40,13 @@ public class WebTablePage {
 
     private void getTables() {
         Browser
-                .getElements(By.xpath("//table[@id='table1']/tbody/tr"))
+                .all(By.xpath("//table[@id='table1']/tbody/tr"))
                 .forEach(row -> {
                     List<String> cells = row.findElements(By.tagName("td")).stream().map(WebElement::getText).toList();
                     table1Person.add(new Person(cells.get(1), cells.get(0), cells.get(3)));
                 });
         Browser
-                .getElements(By.xpath("//table[@id='table2']/tbody/tr"))
+                .all(By.xpath("//table[@id='table2']/tbody/tr"))
                 .forEach(row -> {
                     List<String> cells = row.findElements(By.tagName("td")).stream().map(WebElement::getText).toList();
                     table2Person.add(new Person(cells.get(1), cells.get(0), cells.get(3)));
@@ -54,12 +54,12 @@ public class WebTablePage {
     }
 
     public String getMaxDuePersonTable1() {
-        double[] dueValue = Browser.getElements(By.xpath("//table[@id='table1']/tbody/tr/td[4]"))
+        double[] dueValue = Browser.all(By.xpath("//table[@id='table1']/tbody/tr/td[4]"))
                 .stream()
                 .mapToDouble(webElement -> Double.parseDouble(webElement.getText().replace("$", "")))
                 .toArray();
 
-        double maxDueValue = Browser.getElements(By.xpath("//table[@id='table1']/tbody/tr/td[4]"))
+        double maxDueValue = Browser.all(By.xpath("//table[@id='table1']/tbody/tr/td[4]"))
                 .stream()
                 .mapToDouble(webElement -> Double.parseDouble(webElement.getText().replace("$", "")))
                 .max()

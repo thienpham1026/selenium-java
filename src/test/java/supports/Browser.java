@@ -96,7 +96,7 @@ public class Browser {
         driver.findElement(locator).click();
     }
 
-    public static List<WebElement> getElements(By locator) {
+    public static List<WebElement> all(By locator) {
         return driver.findElements(locator);
     }
 

@@ -21,10 +21,10 @@ public class HoverPage {
 
         actions
                 .moveToElement(Browser
-                                .getElements(By.cssSelector("#content .figure"))
+                                .all(By.cssSelector("#content .figure"))
                                 .get(imageIndex))
                 .perform();
 
-        return Browser.getElements(By.cssSelector(".figcaption h5")).get(imageIndex).getText();
+        return Browser.all(By.cssSelector(".figcaption h5")).get(imageIndex).getText();
     }
 }

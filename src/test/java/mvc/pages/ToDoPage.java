@@ -37,7 +37,7 @@ public class ToDoPage {
     }
 
     public boolean isTaskExist(String taskName){
-        List<WebElement> tasks = getElements(By.cssSelector(".todo-list li"));
+        List<WebElement> tasks = all(By.cssSelector(".todo-list li"));
         if (tasks.isEmpty())  return  false;
 
         String lastTaskName=  tasks.get(tasks.size()-1).getText();
@@ -45,7 +45,7 @@ public class ToDoPage {
     }
 
     public WebElement getTask(String taskName){
-        List<WebElement> tasks = getElements(By.cssSelector(".todo-list li"));
+        List<WebElement> tasks = all(By.cssSelector(".todo-list li"));
         return tasks.stream()
                 .filter(task -> task.getText().equals(taskName))
                 .findFirst()
@@ -57,7 +57,7 @@ public class ToDoPage {
     }
 
     public int getItemsLeft(){
-        if(getElements(By.className("todo-count")).isEmpty()) return 0;
+        if(all(By.className("todo-count")).isEmpty()) return 0;
 
         String itemsLeftContext = Browser.getText(By.className("todo-count"));
         return Integer.parseInt(itemsLeftContext.split(" ")[0]);

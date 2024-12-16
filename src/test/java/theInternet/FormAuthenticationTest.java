@@ -5,7 +5,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import supports.Browser;
+
+import static supports.Browser.*;
+
 import theInternet.pages.FormAuthenticationPage;
 
 public class FormAuthenticationTest {
@@ -21,7 +23,7 @@ public class FormAuthenticationTest {
 
     @BeforeMethod
     void setup() {
-        Browser.openBrowser("chrome");
+        openBrowser("chrome");
     }
 
     @Test(dataProvider = "testData")
@@ -30,12 +32,12 @@ public class FormAuthenticationTest {
         formAuthenticationPage.open();
         formAuthenticationPage.login(username, password);
 
-        Assert.assertEquals(Browser.getCurrentUrl(), expectedUrl);
+        Assert.assertEquals(getCurrentUrl(), expectedUrl);
         Assert.assertTrue(formAuthenticationPage.isMessageContent(type, expectedText));
     }
 
     @AfterMethod
     void tearDown() {
-        Browser.quit();
+        quit();
     }
 }

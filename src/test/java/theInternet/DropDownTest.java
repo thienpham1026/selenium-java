@@ -4,15 +4,17 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import supports.Browser;
 import theInternet.pages.DropDownPage;
+
+import static supports.Browser.openBrowser;
+import static supports.Browser.quit;
 
 public class DropDownTest {
     DropDownPage dropDownPage;
 
     @BeforeClass
     void setup() {
-        Browser.openBrowser("chrome");
+        openBrowser("chrome");
         dropDownPage = new DropDownPage();
     }
 
@@ -50,6 +52,6 @@ public class DropDownTest {
 
     @AfterClass
     void tearDown() {
-        Browser.quit();
+        quit();
     }
 }

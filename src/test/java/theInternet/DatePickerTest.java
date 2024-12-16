@@ -8,29 +8,28 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import supports.Browser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
-
-import static supports.Browser.*;
 
 public class DatePickerTest {
 
     @BeforeClass
     void setup() {
-        openBrowser("chrome");
+        Browser.openBrowser("chrome");
     }
 
     @Test
     void selectADate() {
-        WebDriver driver = getDriver();
+        WebDriver driver = Browser.getDriver();
         driver.manage().window().maximize();
-        visit("https://www.vietnamairlines.com/vn/en/home");
-        WebDriverWait wait = getWait();
-
+        driver.get("https://www.vietnamairlines.com/vn/en/home");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cookie-agree"))).click();
 
         //select city
@@ -77,7 +76,7 @@ public class DatePickerTest {
 
     @AfterClass
     void tearDown() {
-        quit();
+        Browser.quit();
     }
 
     public static void main(String[] args) {

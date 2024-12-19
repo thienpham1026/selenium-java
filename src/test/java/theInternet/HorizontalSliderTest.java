@@ -11,27 +11,29 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import supports.Browser;
+import static supports.Browser.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.Duration;
 
 public class HorizontalSliderTest {
     WebDriver driver;
+    Actions actions;
+    WebDriverWait wait;
 
     @BeforeClass
     void setup() {
-        Browser.openBrowser("chrome");
-        driver = Browser.getDriver();
+        openBrowser("chrome");
+        driver = getDriver();
+        actions = getActions();
+        wait = getWait();
     }
 
     @Test
     void ableToHorizontalSlidePointer() {
-       driver.get("https://the-internet.herokuapp.com/horizontal_slider");
+       visit("https://the-internet.herokuapp.com/horizontal_slider");
 
-       Actions actions = new Actions(driver);
-       WebElement pointer = driver.findElement(By.cssSelector(".sliderContainer input"));
+       WebElement pointer = getElement(By.cssSelector(".sliderContainer input"));
        int offsetWidth = pointer.getSize().getWidth();
        int offsetHeight = pointer.getSize().getHeight();
        System.out.printf("%d %d", offsetHeight, offsetWidth);
@@ -41,15 +43,12 @@ public class HorizontalSliderTest {
                .release()
                .perform();
 
-       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
        Assert.assertTrue(wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id("range"), "5")));
     }
 
     @Test
     void ableScrollDown() throws InterruptedException {
-        driver.get("https://the-internet.herokuapp.com/infinite_scroll");
-
-        Actions actions = new Actions(driver);
+        visit("https://the-internet.herokuapp.com/infinite_scroll");
 
         for (int i = 0; i < 5; i++) {
             actions.scrollByAmount(0, 1000).perform();
@@ -59,27 +58,25 @@ public class HorizontalSliderTest {
 
     @Test
     void contextClick() {
-        driver.get("https://the-internet.herokuapp.com/context_menu");
+        visit("https://the-internet.herokuapp.com/context_menu");
 
-        Actions actions = new Actions(driver);
-        actions.contextClick(driver.findElement(By.id("hot-spot"))).perform();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        actions.contextClick(getElement(By.id("hot-spot"))).perform();
+
         wait.until(ExpectedConditions.alertIsPresent()).accept();
     }
 
     @Test
     void keyPress() {
-        driver.get("https://the-internet.herokuapp.com/key_presses");
-        Actions actions = new Actions(driver);
+        visit("https://the-internet.herokuapp.com/key_presses");
 
         actions.keyDown(Keys.ESCAPE).perform();
 
-        Assert.assertEquals(driver.findElement(By.id("result")).getText(), "You entered: ESCAPE");
+        Assert.assertEquals(getElement(By.id("result")).getText(), "You entered: ESCAPE");
     }
 
     @Test
     void captureScreenshot() throws IOException {
-        driver.get("https://www.selenium.dev/");
+        visit("https://www.selenium.dev/");
 
         TakesScreenshot scrShot = ((TakesScreenshot) driver);
         File srcFile = scrShot.getScreenshotAs(OutputType.FILE);
@@ -88,18 +85,14 @@ public class HorizontalSliderTest {
     }
 
     @AfterMethod(alwaysRun = true)
-    void captureScreenshot(ITestResult testResult) throws IOException {
+    void captureScreenshot(ITestResult testResult) {
         if (!testResult.isSuccess()) {
-            TakesScreenshot scrShot = ((TakesScreenshot) driver);
-            File srcFile = scrShot.getScreenshotAs(OutputType.FILE);
-            File destFile = new File(String.format("target/%s-%d.png",
-                    testResult.getMethod().getMethodName(), System.currentTimeMillis()));
-            FileUtils.copyFile(srcFile, destFile);
+            captureScreenShot(testResult.getName());
         }
     }
 
     @AfterClass
     void tearDown() {
-        Browser.quit();
+        quit();
     }
 }

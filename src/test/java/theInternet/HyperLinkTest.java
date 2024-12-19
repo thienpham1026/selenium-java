@@ -6,8 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import theInternet.pages.HyperLinkPage;
 
-import static supports.Browser.openBrowser;
-import static supports.Browser.quit;
+import static supports.Browser.*;
 
 public class HyperLinkTest {
 

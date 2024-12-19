@@ -4,14 +4,16 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import supports.Browser;
+
+import static supports.Browser.*;
+
 import theInternet.pages.DynamicLoadingPage;
 
 public class DynamicLoadingPageTest {
 
     @BeforeClass
     void setup() {
-        Browser.openBrowser("chrome");
+       openBrowser("chrome");
     }
 
     @Test
@@ -25,6 +27,6 @@ public class DynamicLoadingPageTest {
 
     @AfterClass
     void tearDown() {
-        Browser.quit();
+        quit();
     }
 }

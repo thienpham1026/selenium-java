@@ -8,8 +8,7 @@ import theInternet.pages.WebTablePage;
 
 import java.util.List;
 
-import static supports.Browser.openBrowser;
-import static supports.Browser.quit;
+import static supports.Browser.*;
 
 public class WebTableTest {
     WebTablePage webTablePage;

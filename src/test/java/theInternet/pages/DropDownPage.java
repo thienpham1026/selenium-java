@@ -3,8 +3,7 @@ package theInternet.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
-import static supports.Browser.getElement;
-import static supports.Browser.visit;
+import static supports.Browser.*;
 
 public class DropDownPage {
     Select select;

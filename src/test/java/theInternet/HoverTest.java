@@ -5,7 +5,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import supports.Browser;
+import static supports.Browser.*;
 import theInternet.pages.HoverPage;
 
 public class HoverTest {
@@ -21,7 +21,7 @@ public class HoverTest {
 
     @BeforeClass
     void setup() {
-        Browser.openBrowser("chrome");
+        openBrowser("chrome");
     }
 
     @Test(dataProvider = "testData")
@@ -35,6 +35,6 @@ public class HoverTest {
 
     @AfterClass
     void tearDown() {
-        Browser.quit();
+       quit();
     }
 }

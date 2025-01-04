@@ -13,17 +13,17 @@ public class BodyMassPage {
     public void fillCalculator(String age, double height, double weight, String gender) {
         getElement(By.cssSelector("input[value=Clear]")).click();
 
-        WebElement ageField = getElement(By.xpath("//input[@id='cage']"));
+        WebElement ageField = getElement(By.cssSelector("input#cage"));
         ageField.sendKeys(age);
 
         if (gender.equalsIgnoreCase("female")) {
             getElement(By.xpath("//label[@for='csex2']/span")).click();
         }
 
-        WebElement heightField = getElement(By.xpath("//input[@id='cheightmeter']"));
+        WebElement heightField = getElement(By.cssSelector("input#cheightmeter"));
         heightField.sendKeys(String.valueOf(height));
 
-        WebElement weightField = getElement(By.xpath("//input[@id='ckg']"));
+        WebElement weightField = getElement(By.cssSelector("input#ckg"));
         weightField.sendKeys(String.valueOf(weight));
 
         getElement(By.xpath("//input[@type='submit']")).click();

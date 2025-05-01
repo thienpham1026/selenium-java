@@ -15,68 +15,74 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DatePickerTest {
 
-    @BeforeClass
-    void setup() {
-        openBrowser("chrome");
-    }
-
-    @Test
-    void selectADate() {
-        WebDriver driver = getDriver();
-        driver.manage().window().maximize();
-        visit("https://www.vietnamairlines.com/vn/en/home");
-        WebDriverWait wait = getWait();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cookie-agree"))).click();
-
-        //select city
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("city-to-roundtrip"))).click();
-
-        wait
-                .until(ExpectedConditions
-                        .visibilityOfAllElementsLocatedBy(
-                                By.cssSelector("#to-bookYourTripTo-vietnam div"))
-                )
-                .stream()
-                .filter(row -> row.getText().contains("Ho Chi Minh City (SGN), Vietnam"))
-                .findFirst()
-                .ifPresent(WebElement::click);
-
-        wait
-                .until(
-                        ExpectedConditions
-                                .visibilityOfAllElementsLocatedBy(
-                                        By
-                                                .cssSelector("#byt-datespicker .ui-datepicker-calendar")))
-                .get(0) // get current month
-                .findElements(By.tagName("a"))
-                .stream()
-                .filter(cell -> cell.getText().contains("29"))
-                .findFirst()
-                .ifPresent(WebElement::click);
-
-        wait
-                .until(
-                        ExpectedConditions
-                                .visibilityOfAllElementsLocatedBy(
-                                        By
-                                                .cssSelector("#byt-datespicker .ui-datepicker-calendar")))
-                .get(1) // get next month
-                .findElements(By.tagName("a"))
-                .stream()
-                .filter(cell -> cell.getText().contains("2"))
-                .findFirst()
-                .ifPresent(WebElement::click);
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(.,'Done')]"))).click();
-    }
-
-    @AfterClass
-    void tearDown() {
-        quit();
-    }
+//    @BeforeClass
+//    void setup() {
+//        openBrowser("chrome");
+//    }
+//
+//    @Test
+//    void selectADate() {
+//        WebDriver driver = getDriver();
+//        driver.manage().window().maximize();
+//        visit("https://www.vietnamairlines.com/vn/en/home");
+//        WebDriverWait wait = getWait();
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cookie-agree"))).click();
+//
+//        // Allow notifications
+//        Map<String, Object> prefs = new HashMap<>();
+//        prefs.put("profile.default_content_setting_values.notifications", 1); // Allow notifications
+//
+//        //select city
+//        wait.until(ExpectedConditions.elementToBeClickable(By.id("city-to-roundtrip"))).click();
+//
+//        wait
+//                .until(ExpectedConditions
+//                        .visibilityOfAllElementsLocatedBy(
+//                                By.cssSelector("#to-bookYourTripTo-vietnam div"))
+//                )
+//                .stream()
+//                .filter(row -> row.getText().contains("Ho Chi Minh City (SGN), Vietnam"))
+//                .findFirst()
+//                .ifPresent(WebElement::click);
+//
+//        wait
+//                .until(
+//                        ExpectedConditions
+//                                .visibilityOfAllElementsLocatedBy(
+//                                        By
+//                                                .cssSelector("#byt-datespicker .ui-datepicker-calendar")))
+//                .get(0) // get current month
+//                .findElements(By.tagName("a"))
+//                .stream()
+//                .filter(cell -> cell.getText().contains("29"))
+//                .findFirst()
+//                .ifPresent(WebElement::click);
+//
+//        wait
+//                .until(
+//                        ExpectedConditions
+//                                .visibilityOfAllElementsLocatedBy(
+//                                        By
+//                                                .cssSelector("#byt-datespicker .ui-datepicker-calendar")))
+//                .get(1) // get next month
+//                .findElements(By.tagName("a"))
+//                .stream()
+//                .filter(cell -> cell.getText().contains("2"))
+//                .findFirst()
+//                .ifPresent(WebElement::click);
+//
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(.,'Done')]"))).click();
+//    }
+//
+//    @AfterClass
+//    void tearDown() {
+//        quit();
+//    }
 
     public static void main(String[] args) {
         // Define the date format

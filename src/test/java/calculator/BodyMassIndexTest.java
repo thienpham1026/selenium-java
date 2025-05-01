@@ -29,7 +29,6 @@ public class BodyMassIndexTest {
         BodyMassIndexPage bodyMassIndexPage = new BodyMassIndexPage();
         bodyMassIndexPage
                 .open()
-                .selectMetricTab()
                 .clearForm();
 
         bodyMassIndexPage.fillForm(age, height, weight, gender);
@@ -37,7 +36,7 @@ public class BodyMassIndexTest {
         String expectedResult = calculateBmi(weight, height);
         String actualResult = bodyMassIndexPage.getResult();
 
-        Assert.assertTrue(actualResult.contains(expectedResult));
+        Assert.assertEquals(expectedResult, actualResult);
     }
 
     @AfterMethod(alwaysRun = true)

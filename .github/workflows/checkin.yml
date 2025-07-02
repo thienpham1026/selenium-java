@@ -1,0 +1,17 @@
+name: Daily Auto Checkin
+
+on:
+  schedule:
+    - cron: '10 1 * * *'   # 08:10 VN (01:10 UTC)
+    - cron: '50 11 * * *'  # 18:50 VN (11:50 UTC)
+  workflow_dispatch:       # Cho phép chạy thủ công
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Base.vn Check-in API
+        run: |
+          curl -X POST https://checkin.base.vn/ajax/api/me/checkin/web \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "client_id=215&content=&captcha=1aaef45&__code=a266018b05b81f06de39e1379530bc77&__sessionid=a9nv8k98e4vh42qdnc0cpsf3g80fv94mptcmq3ptri2kiopgg0bo4ei1o8vc76shamkj0jo266905afe&__otp=848586dd014d9cce463d5efba78af41e"

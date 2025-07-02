@@ -2,15 +2,24 @@ name: Daily Auto Checkin
 
 on:
   schedule:
-    - cron: '10 1 * * *'   # 08:10 VN (01:10 UTC)
-    - cron: '50 11 * * *'  # 18:50 VN (11:50 UTC)
-  workflow_dispatch:       # Cho phép chạy thủ công
+    # ┌───────────── minute
+    # │ ┌─────────── hour
+    # │ │ ┌───────── day of month
+    # │ │ │ ┌─────── month
+    # │ │ │ │ ┌───── day of week (1-5 = Mon-Fri)
+    - cron: '10 1 * * 1-5'   # 08:10 VN
+    - cron: '50 11 * * 1-5'  # 18:50 VN
+  workflow_dispatch:         # Manual trigger
 
 jobs:
   checkin:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        attempt: [1, 2, 3]  # Retry up to 2 times
     steps:
-      - name: Call Base.vn Check-in API
+      - name: Call Base.vn Check-in API (Attempt ${{ matrix.attempt }})
         run: |
           curl -X POST https://checkin.base.vn/ajax/api/me/checkin/web \
             -H "Content-Type: application/x-www-form-urlencoded" \

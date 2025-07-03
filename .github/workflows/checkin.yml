@@ -2,11 +2,6 @@ name: Daily Auto Checkin
 
 on:
   schedule:
-    # ┌───────────── minute
-    # │ ┌─────────── hour
-    # │ │ ┌───────── day of month
-    # │ │ │ ┌─────── month
-    # │ │ │ │ ┌───── day of week (1-5 = Mon-Fri)
     - cron: '10 1 * * 1-5'   # 08:10 VN
     - cron: '50 11 * * 1-5'  # 18:50 VN
   workflow_dispatch:         # Manual trigger
@@ -14,13 +9,39 @@ on:
 jobs:
   checkin:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        attempt: [1, 2, 3]  # Retry up to 2 times
+
     steps:
-      - name: Call Base.vn Check-in API (Attempt ${{ matrix.attempt }})
+      - name: Sleep random 0–600 sec
         run: |
-          curl -X POST https://checkin.base.vn/ajax/api/me/checkin/web \
-            -H "Content-Type: application/x-www-form-urlencoded" \
-            -d "client_id=215&content=&captcha=1aaef45&__code=a266018b05b81f06de39e1379530bc77&__sessionid=a9nv8k98e4vh42qdnc0cpsf3g80fv94mptcmq3ptri2kiopgg0bo4ei1o8vc76shamkj0jo266905afe&__otp=848586dd014d9cce463d5efba78af41e"
+          SLEEP_SEC=$((RANDOM % 601))
+          echo "Sleeping for $SLEEP_SEC seconds..."
+          sleep $SLEEP_SEC
+
+      - name: Try up to 3 times
+        run: |
+          max_attempts=3
+          attempt=1
+
+          while [ $attempt -le $max_attempts ]; do
+            echo "Attempt $attempt..."
+
+            response=$(curl --silent --show-error --fail -X POST "https://checkin.base.vn/ajax/api/me/checkin/web" \
+              -H "Content-Type: application/x-www-form-urlencoded" \
+              -d "client_id=215&content=&captcha=1aaef45&__code=a266018b05b81f06de39e1379530bc77&__sessionid=a9nv8k98e4vh42qdnc0cpsf3g80fv94mptcmq3ptri2kiopgg0bo4ei1o8vc76shamkj0jo266905afe&__otp=848586dd014d9cce463d5efba78af41e")
+
+            exit_code=$?
+
+            if [ $exit_code -eq 0 ]; then
+              echo "✅ Check-in succeeded."
+              echo "Response: $response"
+              exit 0
+            else
+              echo "❌ Attempt $attempt failed."
+            fi
+
+            attempt=$((attempt+1))
+            sleep 10
+          done
+
+          echo "❌ All attempts failed."
+          exit 1

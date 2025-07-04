@@ -11,12 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Sleep random 0–600 sec
-        run: |
-          SLEEP_SEC=$((RANDOM % 601))
-          echo "Sleeping for $SLEEP_SEC seconds..."
-          sleep $SLEEP_SEC
-
       - name: Try up to 3 times
         run: |
           max_attempts=3

@@ -2,7 +2,7 @@ name: Daily Auto Checkin
 
 on:
   schedule:
-    - cron: '1 0 * * 1-5'    # 07:01 VN
+    - cron: '0 23 * * 1-5'   # 07:01 VN
     - cron: '50 11 * * 1-5'  # 18:50 VN
   workflow_dispatch:         # Manual trigger
 
